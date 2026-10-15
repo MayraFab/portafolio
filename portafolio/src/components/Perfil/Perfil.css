@@ -1,0 +1,157 @@
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+.sobre-mi-section {
+  padding: 5rem 5%;
+  background-color: #0b0f19; /* Continuidad del fondo oscuro */
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+}
+
+.sobre-mi-container {
+  max-width: 1000px;
+  width: 100%;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+  color: #ffffff;
+}
+
+/* =========================================
+   GRID (Grilla para las 2 tarjetas)
+========================================= */
+.sobre-mi-grid {
+  display: grid;
+  /* La primera columna será ligeramente más ancha que la segunda (1.3fr vs 1fr) */
+  grid-template-columns: 1.3fr 1fr;
+  gap: 2rem;
+}
+
+/* =========================================
+   TARJETAS (Cards)
+========================================= */
+.card {
+  background-color: #111a2e; /* Un tono ligeramente más claro que el fondo */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.icon-box {
+  background-color: rgba(110, 231, 183, 0.1);
+  color: #6ee7b7; /* Color menta/cian */
+  padding: 0.8rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-header h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.card-text {
+  color: #8b95a1;
+  line-height: 1.8;
+  font-size: 1rem;
+  text-align: justify;
+}
+
+/* =========================================
+   LÍNEA DE TIEMPO (Educación)
+========================================= */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 1.5rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* El punto en la línea de tiempo */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -5px; /* Centra el punto sobre el borde izquierdo */
+  top: 5px;
+  width: 8px;
+  height: 8px;
+  background-color: #111a2e;
+  border: 2px solid #6ee7b7;
+  border-radius: 50%;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.timeline-header h4 {
+  font-size: 1.1rem;
+  color: #6ee7b7;
+  font-weight: 600;
+}
+
+.timeline-date {
+  font-size: 0.9rem;
+  color: #8b95a1;
+}
+
+/* =========================================
+   ETIQUETAS (Badges)
+========================================= */
+.badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.badge-outline {
+  border: 1px solid #6ee7b7;
+  color: #6ee7b7;
+  background-color: transparent;
+}
+
+.badge-solid {
+  background-color: #6ee7b7;
+  color: #0b0f19;
+}
+
+/* =========================================
+   RESPONSIVIDAD (Celulares y Tablets)
+========================================= */
+@media (max-width: 900px) {
+  .sobre-mi-grid {
+    /* En pantallas pequeñas, colapsa a 1 sola columna */
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 1.5rem; /* Reduce el padding interno en móviles */
+  }
+}

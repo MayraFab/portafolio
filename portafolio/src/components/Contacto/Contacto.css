@@ -1,0 +1,185 @@
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+.contacto-section {
+  padding: 6rem 5%;
+  background-color: #050810; /* Un fondo ligeramente más oscuro para cerrar la página */
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contacto-main-title {
+  color: #00d8ff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.contacto-container {
+  max-width: 1000px;
+  width: 100%;
+}
+
+/* =========================================
+   GRID (2 Columnas)
+========================================= */
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* =========================================
+   COLUMNA IZQUIERDA (Info)
+========================================= */
+.info-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.info-desc {
+  color: #8b95a1;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.info-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.info-icon {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #00d8ff;
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #8b95a1;
+  margin-bottom: 0.2rem;
+}
+
+.item-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* =========================================
+   COLUMNA DERECHA (Formulario)
+========================================= */
+.contacto-form-wrapper {
+  background-color: #111a2e;
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.contacto-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  color: #a0aab2;
+}
+
+/* Estilos para los campos de entrada */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+/* Efecto FOCUS (Borde Cyan al hacer clic) */
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #00d8ff;
+  box-shadow: 0 0 0 2px rgba(0, 216, 255, 0.2);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #4b5563;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+/* =========================================
+   BOTÓN ENVIAR
+========================================= */
+.btn-submit {
+  background-color: #00d8ff;
+  color: #050810;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.btn-submit:hover {
+  background-color: #00bce6;
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   RESPONSIVIDAD (Móviles)
+========================================= */
+@media (max-width: 768px) {
+  .contacto-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .contacto-main-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .contacto-form-wrapper {
+    padding: 1.5rem;
+  }
+}

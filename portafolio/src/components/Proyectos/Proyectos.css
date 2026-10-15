@@ -1,0 +1,158 @@
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+.proyectos-section {
+  padding: 5rem 5%;
+  background-color: #0b0f19;
+  display: flex;
+  justify-content: center;
+}
+
+.proyectos-container {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* =========================================
+   GRID (2 Columnas en PC)
+========================================= */
+.proyectos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 2.5rem;
+}
+
+/* =========================================
+   TARJETA DEL PROYECTO
+========================================= */
+.proyecto-card {
+  background-color: #111a2e;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden; /* Clave para que la imagen no se salga de las curvas */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.proyecto-card:hover {
+  transform: translateY(-8px);
+}
+
+/* =========================================
+   IMAGEN DEL PROYECTO
+========================================= */
+.proyecto-imagen img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover; /* Evita que la captura se deforme */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* =========================================
+   CONTENIDO Y TEXTOS
+========================================= */
+.proyecto-contenido {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Empuja el resto hacia abajo */
+}
+
+.proyecto-titulo {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.proyecto-desc {
+  color: #8b95a1;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1; /* Permite que este párrafo crezca si es necesario */
+}
+
+/* =========================================
+   ETIQUETAS (Tags de Tecnologías)
+========================================= */
+.proyecto-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.tech-tag {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #a0aab2;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* =========================================
+   BOTONES DE ACCIÓN
+========================================= */
+.proyecto-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-proyecto {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-demo {
+  color: #00d8ff;
+  border: 1px solid #00d8ff;
+  background-color: rgba(0, 216, 255, 0.05);
+}
+
+.btn-demo:hover {
+  background-color: rgba(0, 216, 255, 0.15);
+}
+
+.btn-codigo {
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: transparent;
+}
+
+.btn-codigo:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================
+   RESPONSIVIDAD (Móviles)
+========================================= */
+@media (max-width: 600px) {
+  .proyectos-grid {
+    grid-template-columns: 1fr; /* 1 sola columna forzada */
+  }
+
+  .proyecto-links {
+    flex-direction: column;
+  }
+
+  .btn-proyecto {
+    justify-content: center;
+  }
+}
