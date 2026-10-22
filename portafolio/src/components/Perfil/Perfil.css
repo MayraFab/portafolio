@@ -2,44 +2,38 @@
    CONTENEDOR PRINCIPAL
 ========================================= */
 .sobre-mi-section {
-  padding: 5rem 5%;
-  background-color: #0b0f19; /* Continuidad del fondo oscuro */
-  color: #ffffff;
+  padding: 6rem 5%;
+  background-color: var(--beige);
+  color: var(--cafe);
   display: flex;
   justify-content: center;
 }
 
 .sobre-mi-container {
-  max-width: 1000px;
+  max-width: 1050px;
   width: 100%;
 }
 
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 2.5rem;
-  color: #ffffff;
-}
-
 /* =========================================
-   GRID (Grilla para las 2 tarjetas)
+   GRID (2 tarjetas)
 ========================================= */
 .sobre-mi-grid {
   display: grid;
-  /* La primera columna será ligeramente más ancha que la segunda (1.3fr vs 1fr) */
-  grid-template-columns: 1.3fr 1fr;
+  /* La primera columna es un poco más ancha (1.4fr vs 1fr) */
+  grid-template-columns: 1.4fr 1fr;
   gap: 2rem;
+  align-items: start;
 }
 
 /* =========================================
-   TARJETAS (Cards)
+   TARJETAS
 ========================================= */
 .card {
-  background-color: #111a2e; /* Un tono ligeramente más claro que el fondo */
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
+  background-color: var(--blanco-calido);
+  border: 1px solid var(--arena);
+  border-radius: 20px;
   padding: 2.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--sombra);
 }
 
 .card-header {
@@ -50,108 +44,110 @@
 }
 
 .icon-box {
-  background-color: rgba(110, 231, 183, 0.1);
-  color: #6ee7b7; /* Color menta/cian */
   padding: 0.8rem;
-  border-radius: 8px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.icon-rosa {
+  background-color: var(--rosa-suave);
+  color: var(--rosa-oscuro);
+}
+
+.icon-verde {
+  background-color: var(--salvia-suave);
+  color: var(--salvia-oscuro);
+}
+
 .card-header h3 {
-  font-size: 1.4rem;
+  font-family: var(--fuente-titulos);
+  font-size: 1.45rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--cafe);
 }
 
 .card-text {
-  color: #8b95a1;
+  color: var(--cafe-suave);
   line-height: 1.8;
-  font-size: 1rem;
-  text-align: justify;
+  font-size: 0.98rem;
+  margin-bottom: 1rem;
+}
+
+.card-text:last-child {
+  margin-bottom: 0;
 }
 
 /* =========================================
-   LÍNEA DE TIEMPO (Educación)
+   LÍNEA DE TIEMPO
 ========================================= */
 .timeline {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.8rem;
 }
 
 .timeline-item {
   position: relative;
   padding-left: 1.5rem;
-  border-left: 2px solid rgba(255, 255, 255, 0.1);
+  border-left: 2px solid var(--arena);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
 }
 
-/* El punto en la línea de tiempo */
+/* Punto sobre la línea */
 .timeline-item::before {
   content: '';
   position: absolute;
-  left: -5px; /* Centra el punto sobre el borde izquierdo */
-  top: 5px;
-  width: 8px;
-  height: 8px;
-  background-color: #111a2e;
-  border: 2px solid #6ee7b7;
+  left: -7px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--salvia);
+  border: 3px solid var(--blanco-calido);
   border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--salvia);
 }
 
-.timeline-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.5rem;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.timeline-header h4 {
-  font-size: 1.1rem;
-  color: #6ee7b7;
+.timeline-item h4 {
+  font-size: 1.08rem;
+  color: var(--cafe);
   font-weight: 600;
 }
 
 .timeline-date {
   font-size: 0.9rem;
-  color: #8b95a1;
-}
-
-/* =========================================
-   ETIQUETAS (Badges)
-========================================= */
-.badge {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.2rem 0.6rem;
-  border-radius: 4px;
+  color: var(--cafe-suave);
   letter-spacing: 0.5px;
 }
 
-.badge-outline {
-  border: 1px solid #6ee7b7;
-  color: #6ee7b7;
-  background-color: transparent;
+/* =========================================
+   ETIQUETAS
+========================================= */
+.badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
 }
 
-.badge-solid {
-  background-color: #6ee7b7;
-  color: #0b0f19;
+.badge-outline {
+  background-color: var(--salvia-suave);
+  color: var(--salvia-oscuro);
 }
 
 /* =========================================
-   RESPONSIVIDAD (Celulares y Tablets)
+   RESPONSIVIDAD
 ========================================= */
 @media (max-width: 900px) {
   .sobre-mi-grid {
-    /* En pantallas pequeñas, colapsa a 1 sola columna */
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Una sola columna */
   }
 
   .card {
-    padding: 1.5rem; /* Reduce el padding interno en móviles */
+    padding: 1.6rem;
   }
 }

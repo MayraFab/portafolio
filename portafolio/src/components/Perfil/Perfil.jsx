@@ -1,20 +1,35 @@
 import './Perfil.css';
 
+// Datos de la línea de tiempo (agrega o quita ítems aquí)
+const timelineData = [
+  {
+    id: 1,
+    titulo: 'Ingeniería de Software con IA',
+    lugar: 'SENATI',
+    estado: 'En curso',
+  },
+  {
+    id: 2,
+    titulo: 'Formación dual',
+    lugar: 'ELOMUX',
+    estado: 'En curso',
+  },
+];
+
 const Perfil = () => {
   return (
     <section id="sobre-mi" className="sobre-mi-section">
       <div className="sobre-mi-container">
         <h2 className="section-title">Sobre mí</h2>
+        <p className="section-subtitle">Un poco de quién soy y cómo trabajo</p>
 
         <div className="sobre-mi-grid">
-
           {/* =====================================
               TARJETA 1: PERFIL PROFESIONAL
           ====================================== */}
           <div className="card">
             <div className="card-header">
-              {/* Ícono de Usuario (SVG) */}
-              <div className="icon-box">
+              <div className="icon-box icon-rosa">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                   <circle cx="12" cy="7" r="4"></circle>
@@ -24,68 +39,46 @@ const Perfil = () => {
             </div>
 
             <p className="card-text">
-              Ingeniero de Sistemas Comptacionales, con experiencia en la docencia de más de 15 años, dictando clases de forma presencial y virtual en diferentes instituciones educativas de prestigio y con experiencia profesional de más de 11 años.
-              <br /><br />
-              Cuento la Certificación Internacional en Microsoft Office Specialist (MOS) Excel Expert y PL - 300 Data Analyst Associate. Instructor CISCO y ORACLE.
-              <br /><br />
-              Consultoría y experiencia en desarrollo de software, utilizando tecnologías como React, Laravel, NodeJS, ExpressJS, MySQL, PostGreSQL, etc. y en desarrollo de dashboards interactivos mediante Power BI, DAX, Power Query, modelado de datos en SQL y automatizaciones con Python.
+              Soy estudiante de quinto semestre de Ingeniería de Software con Inteligencia
+              Artificial en SENATI. Actualmente complemento mi formación con el modelo dual en
+              la empresa ELOMUX, donde conozco de cerca el trabajo y los retos de un entorno
+              profesional.
+            </p>
+            <p className="card-text">
+              Me considero una persona multifacética, curiosa y comprometida con aprender cosas
+              nuevas constantemente. Disfruto explorar distintas áreas de la tecnología y aplicar
+              lo aprendido en proyectos concretos.
+            </p>
+            <p className="card-text">
+              Destaco por mis habilidades blandas, la colaboración y la comunicación clara de
+              ideas, cualidades que me ayudan a aportar y crecer junto a cada equipo.
             </p>
           </div>
 
           {/* =====================================
-              TARJETA 2: EDUCACIÓN
+              TARJETA 2: EDUCACIÓN Y EXPERIENCIA
           ====================================== */}
           <div className="card">
             <div className="card-header">
-              {/* Ícono de Educación / Sombrero (SVG) */}
-              <div className="icon-box">
+              <div className="icon-box icon-verde">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
                   <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
                 </svg>
               </div>
-              <h3>Educación</h3>
+              <h3>Formación</h3>
             </div>
 
             <div className="timeline">
-              {/* Ítem de Educación 1 */}
-              <div className="timeline-item">
-                <div className="timeline-header">
-                  <h4>Ingeniería de Sistemas Computacionales</h4>
-                  <span className="badge badge-outline">Titulado</span>
+              {timelineData.map((item) => (
+                <div key={item.id} className="timeline-item">
+                  <span className="badge badge-outline">{item.estado}</span>
+                  <h4>{item.titulo}</h4>
+                  <span className="timeline-date">{item.lugar}</span>
                 </div>
-                <span className="timeline-date">UNIVERSIDAD TECNOLÓGICA DEL PERÚ</span>
-              </div>
-
-              {/* Ítem de Educación 2 */}
-              <div className="timeline-item">
-                <div className="timeline-header">
-                  <h4>Computación e Informática</h4>
-                  <span className="badge badge-outline">Titulado</span>
-                </div>
-                <span className="timeline-date">I.S.T CESCA</span>
-              </div>
-
-              {/* Ítem de Educación 3 */}
-              <div className="timeline-item">
-                <div className="timeline-header">
-                  <h4>MOS Excel Expert</h4>
-                  <span className="badge badge-outline">Certificación Internacional</span>
-                </div>
-                <span className="timeline-date">MICROSOFT</span>
-              </div>
-
-              {/* Ítem de Educación 4 */}
-              <div className="timeline-item">
-                <div className="timeline-header">
-                  <h4>Power BI Data Analyst Associate - PL - 300</h4>
-                  <span className="badge badge-outline">Certificación Internacional</span>
-                </div>
-                <span className="timeline-date">MICROSOFT</span>
-              </div>
+              ))}
             </div>
           </div>
-
         </div>
       </div>
     </section>

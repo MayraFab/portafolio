@@ -1,19 +1,47 @@
 /* =========================================
-   CONTENEDOR PRINCIPAL (Ocupa toda la pantalla)
+   CONTENEDOR PRINCIPAL (ocupa toda la pantalla)
 ========================================= */
 .hero-section {
-  min-height: calc(100vh - 80px); /* 100vh menos la altura aproximada del navbar */
+  min-height: calc(100vh - 70px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle at center, #111a2e 0%, #0b0f19 70%);
-  color: #ffffff;
-  padding: 2rem 5%;
+  background-color: var(--crema);
+  color: var(--cafe);
+  padding: 3rem 5% 5rem;
   position: relative;
+  overflow: hidden; /* Para que las manchas no generen scroll horizontal */
+}
+
+/* Manchas de color difuminadas en el fondo */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.7;
+  z-index: 0;
+}
+
+.blob-rosa {
+  width: 380px;
+  height: 380px;
+  background-color: var(--rosa-suave);
+  top: 6%;
+  left: 8%;
+}
+
+.blob-verde {
+  width: 340px;
+  height: 340px;
+  background-color: var(--salvia-suave);
+  bottom: 4%;
+  right: 8%;
 }
 
 .hero-content {
+  position: relative;
+  z-index: 1;
   max-width: 800px;
   display: flex;
   flex-direction: column;
@@ -22,72 +50,92 @@
 }
 
 /* =========================================
-   ETIQUETA DE ESTADO (BADGE)
+   ETIQUETA DE ESTADO
 ========================================= */
 .status-badge {
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  background-color: var(--blanco-calido);
+  border: 1px solid var(--arena);
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
   font-size: 0.85rem;
-  color: #a0aab2;
+  color: var(--cafe-suave);
   margin-bottom: 2rem;
+  box-shadow: var(--sombra);
 }
 
 .status-dot {
   width: 8px;
   height: 8px;
-  background-color: #00d8ff; /* Cyan */
+  background-color: var(--salvia);
   border-radius: 50%;
-  box-shadow: 0 0 8px #00d8ff; /* Efecto de brillo */
+  box-shadow: 0 0 0 4px var(--salvia-suave);
 }
 
 /* =========================================
    FOTO DE PERFIL CIRCULAR
 ========================================= */
 .profile-photo-container {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
+  padding: 6px;
+  border-radius: 50%;
+  /* Aro de dos colores: rosa y verde */
+  background: linear-gradient(135deg, var(--rosa) 0%, var(--salvia) 100%);
+  box-shadow: var(--sombra-hover);
 }
 
 .profile-photo {
+  display: block;
   width: 160px;
   height: 160px;
-  object-fit: cover; /* Evita que la foto se estire si no es cuadrada */
-  border-radius: 50%; /* Hace que sea un círculo perfecto */
-  border: 6px solid rgba(5, 163, 215, 0.8); /* Borde sutil cyan */
-  box-shadow: 0 0 20px rgba(5, 163, 215, 0.8); /* Sombra brillante */
+  object-fit: cover;   /* Evita que la foto se deforme */
+  border-radius: 50%;  /* Círculo perfecto */
+  border: 5px solid var(--crema);
+}
+
+/* Iniciales mientras no haya foto */
+.profile-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--rosa-suave);
+  color: var(--rosa-oscuro);
+  font-family: var(--fuente-titulos);
+  font-size: 3.4rem;
+  font-weight: 600;
 }
 
 /* =========================================
-   TIPOGRAFÍA (Títulos y Descripción)
+   TIPOGRAFÍA
 ========================================= */
 .hero-title {
+  font-family: var(--fuente-titulos);
   font-size: 4rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.1;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.3rem;
+  color: var(--cafe);
 }
 
-.text-cyan {
-  color: #00d8ff;
+.hero-title .text-accent {
+  font-style: italic;
 }
 
 .hero-subtitle {
-  font-size: 1.1rem;
-  color: #00d8ff;
+  font-size: 1.05rem;
+  color: var(--salvia-oscuro);
   font-weight: 500;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.3rem;
 }
 
 .hero-description {
-  font-size: 1.1rem;
-  color: #8b95a1;
-  line-height: 1.6;
+  font-size: 1.05rem;
+  color: var(--cafe-suave);
+  line-height: 1.7;
   margin-bottom: 2.5rem;
-  max-width: 700px;
+  max-width: 640px;
 }
 
 /* =========================================
@@ -99,8 +147,8 @@
 }
 
 .btn {
-  padding: 0.8rem 2rem;
-  border-radius: 8px;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
   font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
@@ -109,34 +157,39 @@
 }
 
 .btn-primary {
-  background-color: #00d8ff;
-  color: #0b0f19;
-  border: 2px solid #00d8ff;
+  background-color: var(--rosa);
+  color: var(--cafe);
+  border: 2px solid var(--rosa);
 }
 
 .btn-primary:hover {
-  background-color: transparent;
-  color: #00d8ff;
+  background-color: var(--rosa-oscuro);
+  border-color: var(--rosa-oscuro);
+  color: var(--blanco-calido);
+  transform: translateY(-2px);
 }
 
 .btn-secondary {
   background-color: transparent;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--cafe);
+  border: 2px solid var(--salvia);
 }
 
 .btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--salvia-suave);
+  transform: translateY(-2px);
 }
 
 /* =========================================
-   ANIMACIÓN DE LA FLECHA (Opcional)
+   FLECHA ANIMADA
 ========================================= */
 .scroll-indicator {
   position: absolute;
-  bottom: 2rem;
-  color: #8b95a1;
+  bottom: 1.8rem;
+  z-index: 1;
+  color: var(--rosa-oscuro);
   font-size: 1.5rem;
+  text-decoration: none;
   animation: bounce 2s infinite;
 }
 
@@ -151,7 +204,7 @@
 ========================================= */
 @media (max-width: 768px) {
   .hero-title {
-    font-size: 2.8rem;
+    font-size: 2.6rem;
   }
 
   .hero-subtitle {
@@ -159,15 +212,25 @@
   }
 
   .hero-description {
-    font-size: 1rem;
+    font-size: 0.98rem;
   }
 
   .profile-photo {
-    width: 110px;
-    height: 110px;
+    width: 120px;
+    height: 120px;
   }
 
-  /* En móviles, los botones se apilan uno debajo del otro */
+  .profile-initials {
+    font-size: 2.6rem;
+  }
+
+  .blob-rosa,
+  .blob-verde {
+    width: 240px;
+    height: 240px;
+  }
+
+  /* Botones apilados */
   .hero-buttons {
     flex-direction: column;
     width: 100%;

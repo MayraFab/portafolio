@@ -1,32 +1,45 @@
 import { useState } from 'react';
 import './Navbar.css';
 
+// Enlaces del menú: cada uno apunta al id de una sección
+const links = [
+  { label: 'Perfil', href: '#sobre-mi' },
+  { label: 'Tech Stack', href: '#tech-stack' },
+  { label: 'Proyectos', href: '#proyectos' },
+  { label: 'Contacto', href: '#contacto' },
+];
+
 const Navbar = () => {
   // Estado para controlar el menú hamburguesa en móviles
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="navbar">
-      {/* Sección del Logo */}
-      <div className="navbar-logo">
-        <span className="text-cyan">Giancarlos</span> Barboza
-      </div>
+    <nav className="navbar" aria-label="Navegación principal">
+      {/* Logo: lleva al inicio */}
+      <a href="#inicio" className="navbar-logo" onClick={() => setIsOpen(false)}>
+        <span className="logo-nombre">Mayra Fabiola</span> Mallqui Paccini
+      </a>
 
-      {/* Enlaces de Navegación */}
-      <div className={`navbar-links ${isOpen ? "open" : ""}`}>
-        {/* Al hacer clic en un enlace en móvil, cerramos el menú */}
-        <a href="#sobre-mi" onClick={() => setIsOpen(false)}>Perfil</a>
-        <a href="#tech-stack" onClick={() => setIsOpen(false)}>Tech Stack</a>
-        <a href="#proyectos" onClick={() => setIsOpen(false)}>Proyectos</a>
-        <a href="#servicios" onClick={() => setIsOpen(false)}>Servicios</a>
-        <a href="#contacto" onClick={() => setIsOpen(false)}>Contacto</a>
-      </div>
+      {/* Botón hamburguesa (solo visible en móviles) */}
+      <button
+        type="button"
+        className={`navbar-toggle ${isOpen ? 'active' : ''}`}
+        aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
+        aria-expanded={isOpen}
+        onClick={() => setIsOpen((open) => !open)}
+      >
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
+      </button>
 
-      {/* Ícono de Menú Hamburguesa (Solo visible en móviles) */}
-      <div className="navbar-toggle" onClick={() => setIsOpen(!isOpen)}>
-        <span className="bar"></span>
-        <span className="bar"></span>
-        <span className="bar"></span>
+      {/* Enlaces de navegación */}
+      <div className={`navbar-links ${isOpen ? 'open' : ''}`}>
+        {links.map((link) => (
+          <a key={link.href} href={link.href} onClick={() => setIsOpen(false)}>
+            {link.label}
+          </a>
+        ))}
       </div>
     </nav>
   );

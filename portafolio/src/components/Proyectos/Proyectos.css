@@ -2,150 +2,187 @@
    CONTENEDOR PRINCIPAL
 ========================================= */
 .proyectos-section {
-  padding: 5rem 5%;
-  background-color: #0b0f19;
+  padding: 6rem 5%;
+  background-color: var(--beige);
   display: flex;
   justify-content: center;
 }
 
 .proyectos-container {
-  max-width: 1200px;
+  max-width: 1150px;
   width: 100%;
 }
 
-.text-center {
-  text-align: center;
-}
-
 /* =========================================
-   GRID (2 Columnas en PC)
+   GRID (2 columnas en PC, 1 en celular)
 ========================================= */
 .proyectos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 2rem;
 }
 
 /* =========================================
    TARJETA DEL PROYECTO
 ========================================= */
 .proyecto-card {
-  background-color: #111a2e;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  overflow: hidden; /* Clave para que la imagen no se salga de las curvas */
+  background-color: var(--blanco-calido);
+  border: 1px solid var(--arena);
+  border-radius: 22px;
+  overflow: hidden; /* La imagen respeta las esquinas redondeadas */
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
+  box-shadow: var(--sombra);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .proyecto-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
+  box-shadow: var(--sombra-hover);
 }
 
 /* =========================================
-   IMAGEN DEL PROYECTO
+   IMAGEN O PORTADA
 ========================================= */
-.proyecto-imagen img {
+.proyecto-imagen img,
+.proyecto-portada {
   width: 100%;
-  height: 280px;
-  object-fit: cover; /* Evita que la captura se deforme */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  height: 220px;
+  display: block;
+}
+
+.proyecto-imagen img {
+  object-fit: cover; /* La captura no se deforma */
+}
+
+.proyecto-portada {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portada-emoji {
+  font-size: 3.5rem;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 253, 249, 0.75);
+  box-shadow: var(--sombra);
+}
+
+/* Portadas de color (degradados suaves) */
+.portada-rosa {
+  background: linear-gradient(135deg, var(--rosa-suave) 0%, var(--rosa) 100%);
+}
+
+.portada-verde {
+  background: linear-gradient(135deg, var(--salvia-suave) 0%, var(--salvia) 100%);
+}
+
+.portada-arena {
+  background: linear-gradient(135deg, var(--crema) 0%, var(--arena) 100%);
+}
+
+.portada-mixta {
+  background: linear-gradient(135deg, var(--rosa-suave) 0%, var(--salvia-suave) 100%);
 }
 
 /* =========================================
-   CONTENIDO Y TEXTOS
+   CONTENIDO
 ========================================= */
 .proyecto-contenido {
-  padding: 2rem;
+  padding: 1.8rem 2rem 2rem;
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Empuja el resto hacia abajo */
+  flex-grow: 1;
 }
 
 .proyecto-titulo {
-  color: #ffffff;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
+  font-family: var(--fuente-titulos);
+  color: var(--cafe);
+  font-size: 1.45rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
 }
 
 .proyecto-desc {
-  color: #8b95a1;
-  line-height: 1.6;
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  flex-grow: 1; /* Permite que este párrafo crezca si es necesario */
+  color: var(--cafe-suave);
+  line-height: 1.65;
+  font-size: 0.97rem;
+  margin-bottom: 1.4rem;
+  flex-grow: 1;
 }
 
 /* =========================================
-   ETIQUETAS (Tags de Tecnologías)
+   ETIQUETAS DE TECNOLOGÍAS
 ========================================= */
 .proyecto-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
-  margin-bottom: 2rem;
+  gap: 0.6rem;
 }
 
 .tech-tag {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #a0aab2;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
+  background-color: var(--salvia-suave);
+  color: var(--salvia-oscuro);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
   font-weight: 500;
 }
 
 /* =========================================
-   BOTONES DE ACCIÓN
+   BOTONES
 ========================================= */
 .proyecto-links {
   display: flex;
-  gap: 1rem;
+  gap: 0.8rem;
   flex-wrap: wrap;
+  margin-top: 1.6rem;
 }
 
 .btn-proyecto {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.7rem 1.5rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .btn-demo {
-  color: #00d8ff;
-  border: 1px solid #00d8ff;
-  background-color: rgba(0, 216, 255, 0.05);
+  background-color: var(--rosa);
+  color: var(--cafe);
 }
 
 .btn-demo:hover {
-  background-color: rgba(0, 216, 255, 0.15);
+  background-color: var(--rosa-oscuro);
+  color: var(--blanco-calido);
 }
 
 .btn-codigo {
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--cafe);
+  border: 1.5px solid var(--arena);
   background-color: transparent;
 }
 
 .btn-codigo:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--salvia);
+  background-color: var(--salvia-suave);
 }
 
 /* =========================================
-   RESPONSIVIDAD (Móviles)
+   RESPONSIVIDAD
 ========================================= */
 @media (max-width: 600px) {
-  .proyectos-grid {
-    grid-template-columns: 1fr; /* 1 sola columna forzada */
+  .proyecto-contenido {
+    padding: 1.5rem;
   }
 
   .proyecto-links {

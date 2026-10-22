@@ -1,9 +1,43 @@
-/* En index.css */
+/* =========================================
+   PALETA DE COLORES (cámbiala aquí y se aplica a todo el portafolio)
+========================================= */
+:root {
+  /* Fondos */
+  --crema: #faf6f0;          /* Fondo principal */
+  --beige: #f3ebe0;          /* Fondo de secciones alternas */
+  --blanco-calido: #fffdf9;  /* Tarjetas */
+  --arena: #e8dccb;          /* Bordes y detalles */
+
+  /* Rosado */
+  --rosa: #d9a5a0;           /* Acento principal (botones) */
+  --rosa-oscuro: #b5736c;    /* Textos rosados y hover */
+  --rosa-suave: #f4deda;     /* Fondos suaves rosados */
+
+  /* Verde salvia */
+  --salvia: #9caf88;         /* Acento secundario */
+  --salvia-oscuro: #5e7552;  /* Textos verdes */
+  --salvia-suave: #e3eadb;   /* Fondos suaves verdes */
+
+  /* Textos */
+  --cafe: #4a3a33;           /* Texto principal y títulos */
+  --cafe-suave: #7a6a61;     /* Texto secundario */
+
+  /* Sombras */
+  --sombra: 0 10px 30px rgba(74, 58, 51, 0.08);
+  --sombra-hover: 0 16px 40px rgba(74, 58, 51, 0.14);
+
+  /* Tipografías */
+  --fuente-titulos: 'Fraunces', Georgia, serif;
+  --fuente-texto: 'Poppins', sans-serif;
+}
+
+/* =========================================
+   RESETEO BÁSICO
+========================================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
 html {
@@ -11,5 +45,57 @@ html {
 }
 
 body {
-  background-color: #0b0f19;
+  background-color: var(--crema);
+  color: var(--cafe);
+  font-family: var(--fuente-texto);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Evita que el navbar fijo tape el título al saltar a una sección */
+section {
+  scroll-margin-top: 80px;
+}
+
+/* =========================================
+   CLASES COMPARTIDAS POR TODAS LAS SECCIONES
+========================================= */
+.section-title {
+  font-family: var(--fuente-titulos);
+  font-size: 2.6rem;
+  font-weight: 600;
+  color: var(--cafe);
+  text-align: center;
+  margin-bottom: 0.8rem;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--cafe-suave);
+  font-size: 1rem;
+  margin-bottom: 3rem;
+}
+
+/* Pequeño adorno debajo de los títulos (rosa + verde) */
+.section-title::after {
+  content: '';
+  display: block;
+  width: 70px;
+  height: 4px;
+  margin: 0.9rem auto 0;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--rosa) 50%, var(--salvia) 50%);
+}
+
+.text-accent {
+  color: var(--rosa-oscuro);
+}
+
+.text-center {
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
 }

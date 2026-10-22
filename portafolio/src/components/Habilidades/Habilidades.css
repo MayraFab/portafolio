@@ -2,125 +2,120 @@
    CONTENEDOR PRINCIPAL
 ========================================= */
 .habilidades-section {
-  padding: 5rem 5%;
-  background-color: #0b0f19;
+  padding: 6rem 5%;
+  background-color: var(--crema);
   display: flex;
   justify-content: center;
 }
 
 .habilidades-container {
-  max-width: 1200px; /* Un poco más ancho para albergar 3 columnas cómodamente */
+  max-width: 1150px;
   width: 100%;
 }
 
 /* =========================================
-   GRID AUTOMÁTICO (Magia Responsive)
+   GRID AUTOMÁTICO
 ========================================= */
 .habilidades-grid {
   display: grid;
-  /* Crea columnas automáticamente que no sean menores a 320px */
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  /* Columnas automáticas de mínimo 300px (o todo el ancho en pantallas pequeñas) */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 1.5rem;
 }
 
 /* =========================================
-   TARJETA (Card)
+   TARJETA
 ========================================= */
 .skill-card {
-  background-color: #111a2e;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 2rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--blanco-calido);
+  border: 1px solid var(--arena);
+  border-radius: 18px;
+  padding: 1.8rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  box-shadow: var(--sombra);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* Efecto al pasar el mouse */
 .skill-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  border-color: rgba(110, 231, 183, 0.2);
+  box-shadow: var(--sombra-hover);
+  border-color: var(--rosa);
 }
 
 /* =========================================
-   CABECERA (Ícono y Botón)
+   CABECERA
 ========================================= */
 .skill-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
+  align-items: center;
+  margin-bottom: 1.3rem;
 }
 
 .skill-icon {
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-}
-
-.text-cyan {
-  color: #00d8ff;
+  justify-content: center;
+  background-color: var(--salvia-suave);
+  color: var(--salvia-oscuro);
 }
 
 /* =========================================
-   BOTONES / ETIQUETAS SUPERIORES
+   ETIQUETAS
 ========================================= */
 .skill-badge {
   font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  letter-spacing: 0.5px;
-  border: 1px solid;
-  background-color: transparent;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  letter-spacing: 0.3px;
 }
 
-/* Variante Verde (Certificado) */
-.badge-green {
-  color: #6ee7b7;
-  border-color: rgba(110, 231, 183, 0.4);
+.badge-verde {
+  background-color: var(--salvia-suave);
+  color: var(--salvia-oscuro);
 }
 
-.badge-green:hover {
-  background-color: rgba(110, 231, 183, 0.1);
-}
-
-/* Variante Amarilla (En Proceso) */
-.badge-yellow {
-  color: #fbbf24;
-  border-color: rgba(251, 191, 36, 0.4);
-}
-
-.badge-yellow:hover {
-  background-color: rgba(251, 191, 36, 0.1);
+.badge-rosa {
+  background-color: var(--rosa-suave);
+  color: var(--rosa-oscuro);
 }
 
 /* =========================================
-   CUERPO DE LA TARJETA (Textos)
+   TEXTOS
 ========================================= */
+.skill-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .skill-title {
-  color: #ffffff;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 0.8rem;
+  font-family: var(--fuente-titulos);
+  color: var(--cafe);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
 }
 
 .skill-desc {
-  color: #8b95a1;
-  font-size: 0.95rem;
+  color: var(--cafe-suave);
+  font-size: 0.93rem;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
-  min-height: 50px; /* Mantiene la altura pareja aunque el texto sea corto */
+  margin-bottom: 1.3rem;
+  flex-grow: 1;
 }
 
 .skill-level {
-  color: #6ee7b7;
-  font-size: 0.9rem;
-  font-weight: 600;
+  align-self: flex-start;
+  color: var(--cafe-suave);
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--arena);
+  width: 100%;
 }
