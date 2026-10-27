@@ -15,8 +15,12 @@ create table if not exists proyectos (
   imagen text,
   tecnologias text[] not null default '{}',
   link_codigo text not null,
-  link_demo text
+  link_demo text,
+  reemplaza text -- id del proyecto de src/data/proyectos.js que esta fila corrige (vacío = proyecto nuevo)
 );
+
+-- Si ya habías creado la tabla antes, esta línea agrega la columna que falta:
+alter table proyectos add column if not exists reemplaza text;
 
 create table if not exists certificados (
   id bigint generated always as identity primary key,

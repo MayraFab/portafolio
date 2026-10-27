@@ -34,6 +34,7 @@ const desdeTabla = (fila) => ({
   tecnologias: fila.tecnologias || [],
   linkCodigo: fila.link_codigo,
   linkDemo: fila.link_demo,
+  reemplaza: fila.reemplaza,
 });
 
 // Devuelve true solo si el enlace existe y no es '#'
@@ -59,15 +60,23 @@ const enderezar = (e) => {
 
 const Proyectos = () => {
   const [filtro, setFiltro] = useState('todos');
-  const [formAbierto, setFormAbierto] = useState(false);
+  // null = cerrado · 'nuevo' = agregar · un proyecto = editar ese proyecto
+  const [formulario, setFormulario] = useState(null);
   const { sesion } = useAdmin();
-  const { items, agregar, quitar } = useColeccion(proyectosData, 'proyectos', desdeTabla);
+  const { items, agregar, editar, quitar } = useColeccion(proyectosData, 'proyectos', desdeTabla);
 
   const visibles = filtro === 'todos' ? items : items.filter((p) => p.categoria === filtro);
-  const cerrarForm = useCallback(() => setFormAbierto(false), []);
+  const cerrarForm = useCallback(() => setFormulario(null), []);
 
+  const guardar = (fila) =>
+    formulario === 'nuevo' ? agregar(fila, sesion.token) : editar(formulario, fila, sesion.token);
+
+  // En un proyecto editado, borrar la fila devuelve el original de src/data/proyectos.js
   const borrar = async (proyecto) => {
-    if (!window.confirm(`¿Eliminar "${proyecto.titulo}"?`)) return;
+    const pregunta = proyecto.reemplaza
+      ? `¿Deshacer los cambios de "${proyecto.titulo}" y volver al original?`
+      : `¿Eliminar "${proyecto.titulo}"?`;
+    if (!window.confirm(pregunta)) return;
     try {
       await quitar(proyecto, sesion.token);
     } catch (error) {
@@ -165,10 +174,17 @@ const Proyectos = () => {
                   )}
                 </div>
 
-                {sesion && proyecto.idRemoto && (
-                  <button type="button" className="boton-eliminar" onClick={() => borrar(proyecto)}>
-                    Eliminar
-                  </button>
+                {sesion && (
+                  <div className="acciones-admin">
+                    <button type="button" className="boton-editar" onClick={() => setFormulario(proyecto)}>
+                      Editar
+                    </button>
+                    {proyecto.idRemoto && (
+                      <button type="button" className="boton-eliminar" onClick={() => borrar(proyecto)}>
+                        {proyecto.reemplaza ? 'Deshacer cambios' : 'Eliminar'}
+                      </button>
+                    )}
+                  </div>
                 )}
               </div>
             </article>
@@ -176,7 +192,7 @@ const Proyectos = () => {
 
           {/* Modo edición: agregar proyecto. Si no, espacio para el próximo */}
           {sesion ? (
-            <button type="button" className="tarjeta-agregar" onClick={() => setFormAbierto(true)}>
+            <button type="button" className="tarjeta-agregar" onClick={() => setFormulario('nuevo')}>
               <span aria-hidden="true">+</span>
               Agregar proyecto
             </button>
@@ -192,8 +208,13 @@ const Proyectos = () => {
         </div>
       </div>
 
-      {formAbierto && (
-        <FormularioProyecto alCerrar={cerrarForm} alGuardar={(fila) => agregar(fila, sesion.token)} />
+      {formulario && (
+        <FormularioProyecto
+          key={formulario === 'nuevo' ? 'nuevo' : formulario.id}
+          inicial={formulario === 'nuevo' ? null : formulario}
+          alCerrar={cerrarForm}
+          alGuardar={guardar}
+        />
       )}
     </section>
   );

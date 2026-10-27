@@ -23,8 +23,22 @@ const nombreArchivo = (titulo) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '')}.js`;
 
-const FormularioProyecto = ({ alGuardar, alCerrar }) => {
-  const [datos, setDatos] = useState(vacio);
+// Pasa un proyecto de la web al formato del formulario (para editarlo)
+const aFormulario = (p) => ({
+  titulo: p.titulo || '',
+  descripcion: p.descripcion || '',
+  categoria: p.categoria || 'web',
+  tecnologias: (p.tecnologias || []).join(', '),
+  icono: p.icono || 'carpeta',
+  archivo: p.archivo || '',
+  imagen: typeof p.imagen === 'string' ? p.imagen : '',
+  link_codigo: p.linkCodigo && p.linkCodigo !== '#' ? p.linkCodigo : '',
+  link_demo: p.linkDemo && p.linkDemo !== '#' ? p.linkDemo : '',
+});
+
+// Sin "inicial" agrega un proyecto nuevo; con "inicial" edita ese proyecto
+const FormularioProyecto = ({ inicial, alGuardar, alCerrar }) => {
+  const [datos, setDatos] = useState(() => (inicial ? aFormulario(inicial) : vacio));
   const [estado, setEstado] = useState({ cargando: false, error: '' });
 
   const cambiar = (e) => setDatos({ ...datos, [e.target.name]: e.target.value });
@@ -51,7 +65,7 @@ const FormularioProyecto = ({ alGuardar, alCerrar }) => {
   };
 
   return (
-    <Modal titulo="Agregar proyecto" alCerrar={alCerrar}>
+    <Modal titulo={inicial ? 'Editar proyecto' : 'Agregar proyecto'} alCerrar={alCerrar}>
       <form className="admin-form" onSubmit={alEnviar}>
         <label>
           Título *
@@ -107,7 +121,7 @@ const FormularioProyecto = ({ alGuardar, alCerrar }) => {
 
         {estado.error && <p className="admin-error">{estado.error}</p>}
         <button type="submit" className="btn btn-primary" disabled={estado.cargando}>
-          {estado.cargando ? 'Guardando…' : 'Guardar proyecto'}
+          {estado.cargando ? 'Guardando…' : inicial ? 'Guardar cambios' : 'Guardar proyecto'}
         </button>
       </form>
     </Modal>

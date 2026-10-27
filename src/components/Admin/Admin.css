@@ -181,6 +181,33 @@
   line-height: 1;
 }
 
+.acciones-admin {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.boton-editar {
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--secundario);
+  background: var(--secundario-suave);
+  color: var(--secundario);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.acciones-admin .boton-eliminar {
+  margin-top: 0;
+}
+
+.boton-editar:hover {
+  background: var(--secundario);
+  color: #fff;
+}
+
 .boton-eliminar {
   align-self: center;
   margin-top: 0.8rem;
