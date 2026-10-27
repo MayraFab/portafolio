@@ -8,6 +8,13 @@
   pointer-events: none;
 }
 
+/* Versión de arriba: volteada y pegada justo debajo del navbar */
+.rocas-invertida {
+  top: 56px;
+  bottom: auto;
+  transform: scaleY(-1);
+}
+
 .rocas-fondo {
   fill: var(--beige);
 }

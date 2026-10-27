@@ -9,13 +9,21 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 0.9rem 1.5rem;
-  background: rgba(var(--fondo-rgb), 0.78);
+  /* Beige piedra (--beige #f6f0e5) un poco translúcido */
+  background: rgba(246, 240, 229, 0.92);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--borde);
+  transition: border-color 0.3s ease;
+}
+
+/* Arriba del todo, sin borde, para que el navbar y las rocas parezcan una sola pieza */
+.navbar-inicio {
+  border-bottom-color: transparent;
 }
 
 .navbar-logo {
+  position: relative;
   font-family: var(--fuente-mono);
   font-weight: 700;
   font-size: 1.05rem;
@@ -31,6 +39,28 @@
 
 .logo-acento {
   color: var(--acento-texto);
+}
+
+/* Destello dorado: casi siempre tenue, de vez en cuando brilla y gira */
+.logo-destello {
+  position: absolute;
+  top: -0.35rem;
+  right: -0.85rem;
+  font-size: 0.7rem;
+  color: var(--oro);
+  opacity: 0.35;
+  animation: destello 4s ease-in-out infinite;
+}
+
+.navbar-logo:hover .logo-destello {
+  opacity: 1;
+  animation-duration: 1.2s;
+}
+
+@keyframes destello {
+  0%, 70%, 100% { opacity: 0.35; transform: scale(0.8) rotate(0deg); }
+  80% { opacity: 1; transform: scale(1.25) rotate(90deg); }
+  90% { opacity: 0.6; transform: scale(0.95) rotate(180deg); }
 }
 
 .navbar-links {

@@ -52,6 +52,8 @@ const Banner = () => {
 
   return (
     <section id="inicio" className="hero-section">
+      <Rocas invertida />
+
       <div className="hero-content">
         {/* 1. Etiqueta de estado */}
         <div className="status-badge">

@@ -16,12 +16,15 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   // Porcentaje recorrido del portafolio (barra de progreso)
   const [progreso, setProgreso] = useState(0);
+  // Arriba del todo el navbar se funde con las rocas del inicio (sin borde)
+  const [enInicio, setEnInicio] = useState(true);
 
   useEffect(() => {
     const alHacerScroll = () => {
       const total = document.documentElement.scrollHeight - window.innerHeight;
       const porcentaje = total > 0 ? Math.min(100, Math.round((window.scrollY / total) * 100)) : 0;
       setProgreso(porcentaje);
+      setEnInicio(window.scrollY < 10);
     };
     alHacerScroll();
     window.addEventListener('scroll', alHacerScroll, { passive: true });
@@ -29,12 +32,14 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="navbar" aria-label="Navegación principal">
+    <nav className={`navbar ${enInicio ? 'navbar-inicio' : ''}`} aria-label="Navegación principal">
       {/* Logo: lleva al inicio */}
       <a href="#inicio" className="navbar-logo" onClick={() => setIsOpen(false)}>
         <span className="logo-tag">&lt;</span>
         Mayra<span className="logo-acento">.dev</span>
         <span className="logo-tag"> /&gt;</span>
+        {/* Destello dorado que brilla de vez en cuando */}
+        <span className="logo-destello" aria-hidden="true">✦</span>
       </a>
 
       {/* Botón hamburguesa (solo visible en móviles) */}
