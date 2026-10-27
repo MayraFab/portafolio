@@ -4,10 +4,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 7rem 1rem 7rem;
+  padding: 9.5rem 1rem 7rem;
   overflow: hidden;
-  /* Luz suave detrás del título */
-  background: radial-gradient(ellipse 60% 45% at 50% 40%, rgba(184, 194, 154, 0.35), transparent 70%);
+  /* Franja beige detrás del navbar (une el navbar con las rocas de arriba) + luz suave detrás del título */
+  background:
+    linear-gradient(var(--beige), var(--beige)) top / 100% 58px no-repeat,
+    radial-gradient(ellipse 60% 45% at 50% 45%, rgba(184, 194, 154, 0.35), transparent 70%);
+}
+
+@media (max-width: 640px) {
+  .hero-section {
+    padding-top: 8rem;
+  }
 }
 
 .hero-content {
