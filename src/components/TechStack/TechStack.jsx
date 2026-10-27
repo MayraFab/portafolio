@@ -54,7 +54,7 @@ const TechStack = () => {
               </div>
             ) : (
               <p className="pantalla-linea pantalla-vacia">
-                <span className="text-accent">&gt;</span> presiona una tecla ⌨️<span className="cursor">▍</span>
+                <span className="text-accent">&gt;</span> presiona una tecla<span className="cursor">▍</span>
               </p>
             )}
           </div>
