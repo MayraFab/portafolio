@@ -1,0 +1,29 @@
+.ondas {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Dos anillos: uno verde y otro dorado, un poco desfasados */
+.onda {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  border: 2px solid rgba(var(--resalte-rgb), 0.55);
+  opacity: 0;
+  animation: expandir 1s ease-out forwards;
+}
+
+.onda-oro {
+  border-color: rgba(201, 165, 72, 0.6);
+  animation-delay: 0.12s;
+}
+
+@keyframes expandir {
+  0% { transform: scale(0.4); opacity: 1; }
+  100% { transform: scale(7); opacity: 0; }
+}

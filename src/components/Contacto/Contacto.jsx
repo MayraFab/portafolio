@@ -71,10 +71,15 @@ const Contacto = () => {
   };
 
   return (
-    <section id="contacto" className="contacto-section">
-      <div className="contacto-container">
-        <h2 className="section-title">Trabajemos Juntos</h2>
-        <p className="section-subtitle">Escríbeme y te respondo lo antes posible</p>
+    <section id="contacto" className="section section-alt contacto-section">
+      <div className="section-container reveal">
+        <header className="section-header">
+          <span className="section-kicker">06 · contacto</span>
+          <h2 className="section-title">
+            Trabajemos <span className="text-accent">juntos</span>
+          </h2>
+          <p className="section-subtitle">Escríbeme y te respondo lo antes posible.</p>
+        </header>
 
         <div className="contacto-grid">
           {/* =====================================
@@ -135,6 +140,13 @@ const Contacto = () => {
               COLUMNA DERECHA: FORMULARIO
           ====================================== */}
           <div className="contacto-form-wrapper">
+            {/* Barra tipo ventana de editor */}
+            <div className="form-barra">
+              <span className="punto punto-1"></span>
+              <span className="punto punto-2"></span>
+              <span className="punto punto-3"></span>
+              <span className="form-archivo">nuevo-mensaje.txt</span>
+            </div>
             <form onSubmit={manejarEnvio} className="contacto-form">
               <div className="form-group">
                 <label htmlFor="nombre">Nombre</label>
@@ -176,12 +188,12 @@ const Contacto = () => {
               </div>
 
               <button type="submit" className="btn-submit" disabled={estadoEnvio === 'enviando'}>
-                {estadoEnvio === 'enviando' ? 'Enviando…' : 'Enviar mensaje'}
+                {estadoEnvio === 'enviando' ? 'Enviando…' : 'ENVIAR MENSAJE'}
               </button>
 
               {/* Mensajes de resultado */}
               {estadoEnvio === 'enviado' && (
-                <p className="form-aviso aviso-ok">¡Gracias! Tu mensaje fue enviado. Te responderé pronto. 🌿</p>
+                <p className="form-aviso aviso-ok">¡Gracias! Tu mensaje fue enviado. Te responderé pronto. ✨</p>
               )}
               {estadoEnvio === 'error' && (
                 <p className="form-aviso aviso-error">

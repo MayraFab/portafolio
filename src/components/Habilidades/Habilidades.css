@@ -1,121 +1,256 @@
-/* =========================================
-   CONTENEDOR PRINCIPAL
-========================================= */
-.habilidades-section {
-  padding: 6rem 5%;
-  background-color: var(--crema);
-  display: flex;
-  justify-content: center;
-}
-
-.habilidades-container {
-  max-width: 1150px;
-  width: 100%;
-}
-
-/* =========================================
-   GRID AUTOMÁTICO
-========================================= */
 .habilidades-grid {
   display: grid;
-  /* Columnas automáticas de mínimo 300px (o todo el ancho en pantallas pequeñas) */
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
+  align-items: stretch;
+  margin-bottom: 1.5rem;
 }
 
-/* =========================================
-   TARJETA
-========================================= */
-.skill-card {
-  background-color: var(--blanco-calido);
-  border: 1px solid var(--arena);
-  border-radius: 18px;
+.hab-card {
   padding: 1.8rem;
-  display: flex;
-  flex-direction: column;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
   box-shadow: var(--sombra);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.skill-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--sombra-hover);
-  border-color: var(--rosa);
-}
-
-/* =========================================
-   CABECERA
-========================================= */
-.skill-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.3rem;
-}
-
-.skill-icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--salvia-suave);
-  color: var(--salvia-oscuro);
-}
-
-/* =========================================
-   ETIQUETAS
-========================================= */
-.skill-badge {
+.hab-subtitulo {
+  font-family: var(--fuente-mono);
   font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.35rem 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--resalte);
+  margin-bottom: 1.2rem;
+}
+
+/* ---------- Habilidades blandas ---------- */
+.blandas {
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+.blandas li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+
+.blanda-icono {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--beige);
+  border: 1px solid var(--borde);
+  color: #1f1b16;
+}
+
+.blanda-nombre {
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.blanda-detalle {
+  font-size: 0.88rem;
+  color: var(--texto-suave);
+}
+
+/* ---------- Áreas técnicas ---------- */
+.areas {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.area {
+  display: grid;
+  grid-template-columns: 1.8rem 1fr auto;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  background: var(--superficie-alta);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  color: var(--texto);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.area:hover {
+  border-color: var(--taupe);
+}
+
+.area.activa {
+  border-color: var(--acento);
+  background: var(--acento-tinte);
+}
+
+.area-icono {
+  display: grid;
+  place-items: center;
+  color: #1f1b16;
+}
+
+.area-nombre {
+  font-weight: 500;
+}
+
+.area-nivel {
+  font-family: var(--fuente-mono);
+  font-size: 0.72rem;
+  padding: 0.15rem 0.6rem;
   border-radius: 999px;
-  letter-spacing: 0.3px;
+  background: var(--secundario-suave);
+  color: var(--resalte);
+  white-space: nowrap;
 }
 
-.badge-verde {
-  background-color: var(--salvia-suave);
-  color: var(--salvia-oscuro);
+.area-detalle {
+  margin-top: 1.2rem;
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  border-left: 3px solid var(--acento);
+  background: var(--superficie-alta);
+  animation: aparecer 0.35s ease;
 }
 
-.badge-rosa {
-  background-color: var(--rosa-suave);
-  color: var(--rosa-oscuro);
+.detalle-texto {
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+  margin-bottom: 0.8rem;
 }
 
-/* =========================================
-   TEXTOS
-========================================= */
-.skill-body {
+.detalle-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.detalle-tags span {
+  font-family: var(--fuente-mono);
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  background: var(--resalte-tinte);
+  color: var(--resalte);
+}
+
+/* ---------- Hacia dónde voy ---------- */
+.ruta {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  position: relative;
+}
+
+/* Línea que une las etapas */
+.ruta::before {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 16.6%;
+  right: 16.6%;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--taupe) 0 8px, transparent 8px 14px);
+}
+
+.ruta li {
+  position: relative;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  align-items: center;
+  text-align: center;
+  gap: 0.25rem;
+  padding: 0 0.8rem;
 }
 
-.skill-title {
-  font-family: var(--fuente-titulos);
-  color: var(--cafe);
-  font-size: 1.3rem;
-  font-weight: 600;
+.ruta-punto {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--superficie);
+  border: 2px solid var(--taupe);
   margin-bottom: 0.6rem;
 }
 
-.skill-desc {
-  color: var(--cafe-suave);
-  font-size: 0.93rem;
-  line-height: 1.6;
-  margin-bottom: 1.3rem;
-  flex-grow: 1;
+.ruta li.actual .ruta-punto {
+  background: var(--acento);
+  border-color: var(--acento);
+  box-shadow: 0 0 0 5px var(--acento-tinte);
 }
 
-.skill-level {
-  align-self: flex-start;
-  color: var(--cafe-suave);
-  font-size: 0.82rem;
-  font-weight: 500;
-  padding-top: 0.9rem;
-  border-top: 1px dashed var(--arena);
-  width: 100%;
+.ruta-etiqueta {
+  font-family: var(--fuente-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--texto-suave);
+}
+
+.ruta li.actual .ruta-etiqueta {
+  color: var(--acento-texto);
+  font-weight: 700;
+}
+
+.ruta-titulo {
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.ruta-detalle {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  max-width: 240px;
+}
+
+@media (max-width: 900px) {
+  .habilidades-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hab-card {
+    padding: 1.3rem;
+  }
+
+  /* En celular la ruta pasa a vertical */
+  .ruta {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+
+  .ruta::before {
+    top: 10px;
+    bottom: 10px;
+    left: 9px;
+    right: auto;
+    width: 2px;
+    height: auto;
+    background: repeating-linear-gradient(180deg, var(--taupe) 0 8px, transparent 8px 14px);
+  }
+
+  .ruta li {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    column-gap: 1rem;
+    text-align: left;
+    align-items: start;
+    padding: 0;
+  }
+
+  .ruta-punto {
+    grid-row: 1 / span 3;
+    margin: 0;
+  }
+
+  .ruta-detalle {
+    max-width: none;
+  }
 }

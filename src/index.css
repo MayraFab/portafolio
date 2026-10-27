@@ -1,34 +1,72 @@
 /* =========================================
-   PALETA DE COLORES (cámbiala aquí y se aplica a todo el portafolio)
+   REGLA DE COLOR 60 · 30 · 10  —  paleta "Tierra"
+   Inspirada en Toph Beifong: verde de la Tierra, piedra beige y un toque dorado.
+   - 60% DOMINANTE  → Blanco #FFFFFF con detalles beige #F6F0E5 (fondo, tarjetas)
+   - 30% SECUNDARIO → Verde oliva #5F6F45 (terminal, teclado, footer, etiquetas)
+   - 10% ACENTO     → Café #8B5E3C (botones) + dorado tierra #C9A548 (pequeños detalles)
 ========================================= */
 :root {
-  /* Fondos */
-  --crema: #faf6f0;          /* Fondo principal */
-  --beige: #f3ebe0;          /* Fondo de secciones alternas */
-  --blanco-calido: #fffdf9;  /* Tarjetas */
-  --arena: #e8dccb;          /* Bordes y detalles */
+  /* 60% — Dominante (blanco + beige) */
+  --dominante: #ffffff;
+  --beige: #f6f0e5;             /* secciones alternas y detalles */
+  --superficie: #fbf8f2;        /* tarjetas sobre fondo blanco */
+  --superficie-alta: #f3ecdf;   /* relieves suaves dentro de tarjetas */
+  --fondo-rgb: 255, 255, 255;
 
-  /* Rosado */
-  --rosa: #d9a5a0;           /* Acento principal (botones) */
-  --rosa-oscuro: #b5736c;    /* Textos rosados y hover */
-  --rosa-suave: #f4deda;     /* Fondos suaves rosados */
+  /* 30% — Secundario (verde oliva) */
+  --secundario: #5f6f45;
+  --secundario-claro: #b8c29a;
+  --secundario-suave: #e8ecdc;
+  --resalte: #5f6f45;           /* textos destacados: etiquetas, prompt, tags */
+  --resalte-tinte: rgba(184, 194, 154, 0.35);
+  --resalte-rgb: 95, 111, 69;
 
-  /* Verde salvia */
-  --salvia: #9caf88;         /* Acento secundario */
-  --salvia-oscuro: #5e7552;  /* Textos verdes */
-  --salvia-suave: #e3eadb;   /* Fondos suaves verdes */
+  /* 10% — Acento (café) */
+  --acento: #8b5e3c;            /* rellenos: botones, puntos, estados activos */
+  --acento-texto: #7a4f30;      /* versión para texto sobre beige */
+  --acento-tinte: rgba(139, 94, 60, 0.12);
+  --acento-rgb: 139, 94, 60;
+  --acento-suave: #efe3d4;
+  --sobre-acento: #ffffff;      /* texto encima del café */
+  --oro: #c9a548;               /* dorado tierra: solo para detalles decorativos */
+
+  /* Neutros (piedra / arena) */
+  --taupe: #a89a86;
+  --taupe-suave: #ebe4d8;
+  --borde: #e3dbcc;
 
   /* Textos */
-  --cafe: #4a3a33;           /* Texto principal y títulos */
-  --cafe-suave: #7a6a61;     /* Texto secundario */
+  --texto: #3a3328;             /* café muy oscuro, más suave que el negro */
+  --texto-suave: #6e6455;
 
-  /* Sombras */
-  --sombra: 0 10px 30px rgba(74, 58, 51, 0.08);
-  --sombra-hover: 0 16px 40px rgba(74, 58, 51, 0.14);
+  /* Tipografías
+     - Space Grotesk: títulos (geométrica, moderna y seria)
+     - DM Sans: texto (muy legible)
+     - JetBrains Mono: terminal, etiquetas y detalles técnicos */
+  --fuente-titulos: 'Space Grotesk', system-ui, sans-serif;
+  --fuente-texto: 'DM Sans', system-ui, sans-serif;
+  --fuente-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  /* Tipografías */
-  --fuente-titulos: 'Fraunces', Georgia, serif;
-  --fuente-texto: 'Poppins', sans-serif;
+  --radio: 18px;
+  --sombra: 0 16px 40px rgba(74, 60, 40, 0.09);
+}
+
+/* Zonas en verde oliva (terminal, teclado, footer):
+   redefinen los tokens para que todo lo de adentro se lea en claro */
+.zona-oscura {
+  --dominante: #3f4a2e;
+  --superficie: #4f5c39;
+  --superficie-alta: #5c6a44;
+  --sombra-tecla: #2f3722;
+  --fondo-rgb: 63, 74, 46;
+  --borde: #6a7852;
+  --resalte: #d3dcb5;
+  --resalte-tinte: rgba(211, 220, 181, 0.16);
+  --resalte-rgb: 211, 220, 181;
+  --acento-texto: #e6c9a8;
+  --texto: #faf7ef;
+  --texto-suave: #e4e8d6;
+  color: var(--texto);
 }
 
 /* =========================================
@@ -45,57 +83,193 @@ html {
 }
 
 body {
-  background-color: var(--crema);
-  color: var(--cafe);
+  background-color: var(--dominante);
+  background-image: radial-gradient(rgba(var(--resalte-rgb), 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--texto);
   font-family: var(--fuente-texto);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
 }
 
 /* Evita que el navbar fijo tape el título al saltar a una sección */
 section {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 70px;
 }
 
 /* =========================================
    CLASES COMPARTIDAS POR TODAS LAS SECCIONES
 ========================================= */
+.section {
+  position: relative;
+  padding: 6rem 1rem;
+}
+
+/* Secciones alternas en beige; sus tarjetas pasan a blanco */
+.section-alt {
+  background-color: var(--beige);
+  --superficie: #ffffff;
+  --superficie-alta: #f8f4ec;
+}
+
+.section-container {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* Encabezado de sección centrado */
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-kicker {
+  display: inline-block;
+  font-family: var(--fuente-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--resalte);
+  padding: 0.3rem 0.8rem;
+  background: var(--secundario-suave);
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
 .section-title {
   font-family: var(--fuente-titulos);
-  font-size: 2.6rem;
-  font-weight: 600;
-  color: var(--cafe);
-  text-align: center;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   margin-bottom: 0.8rem;
 }
 
 .section-subtitle {
-  text-align: center;
-  color: var(--cafe-suave);
-  font-size: 1rem;
-  margin-bottom: 3rem;
-}
-
-/* Pequeño adorno debajo de los títulos (rosa + verde) */
-.section-title::after {
-  content: '';
-  display: block;
-  width: 70px;
-  height: 4px;
-  margin: 0.9rem auto 0;
-  border-radius: 4px;
-  background: linear-gradient(90deg, var(--rosa) 50%, var(--salvia) 50%);
+  color: var(--texto-suave);
+  max-width: 620px;
+  margin: 0 auto;
 }
 
 .text-accent {
-  color: var(--rosa-oscuro);
+  color: var(--acento-texto);
 }
 
-.text-center {
+/* Botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--acento);
+  color: var(--sobre-acento);
+  box-shadow: 0 10px 24px rgba(var(--acento-rgb), 0.28);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(var(--acento-rgb), 0.4);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--secundario);
+  color: var(--secundario);
+}
+
+.btn-ghost:hover {
+  transform: translateY(-2px);
+  background: var(--secundario);
+  color: var(--dominante);
+}
+
+kbd {
+  display: inline-block;
+  min-width: 1.7em;
   text-align: center;
+  font-family: var(--fuente-mono);
+  font-size: 0.8em;
+  padding: 0.05em 0.4em;
+  border: 1px solid var(--borde);
+  border-bottom-width: 3px;
+  border-radius: 6px;
+  background: var(--superficie);
+  color: var(--resalte);
+}
+
+/* Animaciones compartidas */
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(6px); }
+}
+
+@keyframes parpadeo {
+  50% { opacity: 0; }
+}
+
+/* Aparición suave al hacer scroll (la activa App.jsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (max-width: 768px) {
-  .section-title {
-    font-size: 2rem;
+  .section {
+    padding: 4.5rem 1rem;
   }
 }

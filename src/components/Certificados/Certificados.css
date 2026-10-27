@@ -1,0 +1,314 @@
+/* ---------- Inglés ---------- */
+.ingles-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 2.5rem;
+  max-width: 900px;
+  margin: 0 auto 2.5rem;
+  padding: 1.6rem 2rem;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-left: 4px solid var(--secundario);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+
+.ingles-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ingles-icono {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--secundario);
+  color: var(--dominante);
+  font-family: var(--fuente-mono);
+  font-weight: 700;
+}
+
+.ingles-etiqueta {
+  font-family: var(--fuente-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--resalte);
+}
+
+.ingles-titulo {
+  font-family: var(--fuente-titulos);
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.ingles-lugar {
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+}
+
+.ingles-estado {
+  color: var(--acento-texto);
+  font-weight: 700;
+}
+
+/* Línea de progreso Básico → Intermedio → Avanzado */
+.ingles-camino {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  position: relative;
+}
+
+.ingles-camino::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 16.6%;
+  right: 16.6%;
+  height: 2px;
+  background: var(--borde);
+}
+
+.ingles-camino li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+
+.camino-punto {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--superficie);
+  border: 2px solid var(--borde);
+}
+
+.ingles-camino li.superada .camino-punto {
+  background: var(--secundario);
+  border-color: var(--resalte);
+}
+
+.ingles-camino li.actual .camino-punto {
+  background: var(--acento);
+  border-color: var(--acento-texto);
+  box-shadow: 0 0 0 5px var(--acento-tinte);
+}
+
+.ingles-camino li.actual {
+  color: var(--texto);
+  font-weight: 700;
+}
+
+/* ---------- Certificados ---------- */
+.certificados-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.certificado-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.8rem 1.3rem;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.certificado-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--resalte);
+}
+
+/* Ícono de línea negra dentro de un círculo beige */
+.cert-icono {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  background: var(--beige);
+  border: 1px solid var(--borde);
+  color: #1f1b16;
+}
+
+.certificado-titulo {
+  font-family: var(--fuente-titulos);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 0.4rem;
+}
+
+.certificado-emisor {
+  font-size: 0.82rem;
+  color: var(--texto-suave);
+  margin-bottom: 1.2rem;
+}
+
+/* Botón siempre al fondo de la tarjeta (margin-top: auto) para que todos queden alineados */
+.certificado-boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--secundario);
+  background: transparent;
+  color: var(--secundario);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.certificado-boton:hover {
+  background: var(--secundario);
+  color: var(--sobre-acento);
+}
+
+.certificado-boton.pendiente {
+  border-style: dashed;
+  border-color: var(--taupe);
+  color: var(--texto-suave);
+  font-weight: 500;
+  cursor: default;
+}
+
+.certificado-boton.pendiente:hover {
+  background: transparent;
+  color: var(--texto-suave);
+}
+
+/* ---------- Visor del PDF ---------- */
+.visor-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(58, 51, 40, 0.55);
+  backdrop-filter: blur(4px);
+  animation: aparecer 0.2s ease;
+}
+
+.visor {
+  width: min(960px, 100%);
+  height: min(88vh, 900px);
+  display: flex;
+  flex-direction: column;
+  background: var(--superficie);
+  border-radius: var(--radio);
+  box-shadow: 0 30px 80px rgba(58, 51, 40, 0.35);
+  overflow: hidden;
+}
+
+.visor-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid var(--borde);
+}
+
+.visor-titulo {
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.visor-emisor {
+  font-size: 0.82rem;
+  color: var(--texto-suave);
+}
+
+.visor-acciones {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.visor-externo {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--acento-texto);
+  text-decoration: none;
+}
+
+.visor-externo:hover {
+  text-decoration: underline;
+}
+
+.visor-cerrar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--borde);
+  background: var(--superficie-alta);
+  color: var(--texto);
+  cursor: pointer;
+}
+
+.visor-cerrar:hover {
+  border-color: var(--acento);
+}
+
+.visor-pdf {
+  flex: 1;
+  width: 100%;
+  border: none;
+  background: var(--dominante);
+}
+
+@media (max-width: 600px) {
+  .visor {
+    height: 90vh;
+  }
+
+  .visor-cabecera {
+    flex-wrap: wrap;
+  }
+
+  .visor-acciones {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 860px) {
+  .ingles-card {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+    padding: 1.4rem;
+  }
+
+  .certificados-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .certificados-grid {
+    grid-template-columns: 1fr;
+  }
+}

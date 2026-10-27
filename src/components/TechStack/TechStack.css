@@ -1,0 +1,214 @@
+.teclado-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.4rem;
+  background: linear-gradient(180deg, var(--superficie-alta), var(--superficie));
+  border: 1px solid var(--borde);
+  border-radius: 24px;
+  box-shadow: var(--sombra), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ---------- Pantalla ---------- */
+.pantalla {
+  min-height: 92px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.4rem;
+  border-radius: 12px;
+  background: var(--dominante);
+  border: 1px solid var(--borde);
+  font-family: var(--fuente-mono);
+  box-shadow: inset 0 0 30px rgba(var(--resalte-rgb), 0.06);
+}
+
+.pantalla-contenido {
+  animation: aparecer 0.3s ease;
+}
+
+.pantalla-linea {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.pantalla-vacia {
+  font-weight: 400;
+  color: var(--texto-suave);
+}
+
+.pantalla-desc {
+  font-size: 0.88rem;
+  color: var(--texto-suave);
+}
+
+.pantalla-estado {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+}
+
+.estado-en-uso {
+  background: var(--resalte-tinte);
+  color: var(--resalte);
+}
+
+.estado-aprendiendo {
+  background: var(--acento-tinte);
+  color: var(--acento-texto);
+}
+
+/* ---------- Teclado ---------- */
+.teclado {
+  display: grid;
+  gap: 1rem;
+}
+
+.teclado-fila {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fila-etiqueta {
+  font-family: var(--fuente-mono);
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.fila-teclas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+/* Tecla con relieve: el borde inferior grueso simula la altura */
+.tecla {
+  position: relative;
+  width: 96px;
+  height: 92px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.5rem;
+  border-radius: 12px;
+  /* Teclas blancas sobre el teclado verde: vuelven a usar los colores claros */
+  --texto: #3a3328;
+  --texto-suave: #6e6455;
+  --resalte: #5f6f45;
+  border: 1px solid #e3dbcc;
+  border-bottom: 6px solid #cfc3ad;
+  background: linear-gradient(180deg, #ffffff, #f6f0e5);
+  color: var(--texto);
+  cursor: pointer;
+  transition: transform 0.08s ease, border-bottom-width 0.08s ease, box-shadow 0.2s ease;
+}
+
+.tecla:hover {
+  box-shadow: 0 0 0 2px #d3dcb5, 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.tecla:active,
+.tecla.presionada {
+  transform: translateY(4px);
+  border-bottom-width: 2px;
+}
+
+.tecla.presionada {
+  box-shadow: 0 0 0 3px var(--oro), 0 0 26px rgba(201, 165, 72, 0.45);
+}
+
+.tecla-icono {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.tecla-sigla {
+  font-family: var(--fuente-mono);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--resalte);
+  height: 34px;
+  display: grid;
+  place-items: center;
+}
+
+.tecla-nombre {
+  font-size: 0.7rem;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--texto-suave);
+}
+
+.tecla-led,
+.led-ejemplo {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--acento);
+  box-shadow: 0 0 8px var(--acento);
+}
+
+.tecla-led {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.teclado-leyenda {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+  font-family: var(--fuente-mono);
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+}
+
+.led-ejemplo {
+  display: inline-block;
+}
+
+@media (max-width: 640px) {
+  .teclado-wrap {
+    padding: 1rem;
+  }
+
+  .teclado-fila {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .fila-teclas {
+    gap: 0.5rem;
+  }
+
+  .tecla {
+    width: calc((100% - 1.5rem) / 4);
+    min-width: 68px;
+    height: 80px;
+  }
+
+  .tecla-icono {
+    width: 28px;
+    height: 28px;
+  }
+
+  .tecla-sigla {
+    height: 28px;
+    font-size: 0.85rem;
+  }
+
+  .tecla-nombre {
+    font-size: 0.62rem;
+  }
+}

@@ -1,53 +1,58 @@
-/* =========================================
-   PIE DE PÁGINA
-========================================= */
 .footer {
-  background-color: var(--cafe);
-  color: var(--crema);
-  padding: 2.5rem 5%;
+  position: relative;
+  padding: 3rem 1rem;
+  border-top: 1px solid var(--borde);
+  background: var(--dominante);
 }
 
 .footer-contenido {
-  max-width: 1150px;
+  max-width: 1120px;
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  text-align: center;
 }
 
 .footer-nombre {
   font-family: var(--fuente-titulos);
+  font-weight: 700;
   font-size: 1.2rem;
-  font-weight: 600;
 }
 
 .footer-acento {
-  color: var(--rosa);
-  font-style: italic;
+  color: var(--acento-texto);
 }
 
 .footer-texto {
-  font-size: 0.9rem;
-  color: var(--arena);
+  font-size: 0.85rem;
+  color: var(--texto-suave);
 }
 
 .footer-arriba {
-  color: var(--salvia-suave);
+  margin-top: 0.6rem;
+  font-family: var(--fuente-mono);
+  font-size: 0.85rem;
+  color: var(--resalte);
   text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
 }
 
 .footer-arriba:hover {
-  color: var(--rosa);
+  color: var(--acento-texto);
 }
 
-@media (max-width: 768px) {
-  .footer-contenido {
-    flex-direction: column;
-    text-align: center;
-  }
+/* Acceso discreto al panel de administración */
+.footer-admin {
+  margin-top: 0.4rem;
+  background: none;
+  border: none;
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.footer-admin:hover {
+  opacity: 1;
+  text-decoration: underline;
 }
