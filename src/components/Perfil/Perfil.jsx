@@ -7,7 +7,7 @@ import miFoto from '../../assets/miFoto.png';
 import IconoCertificado from '../Certificados/IconoCertificado';
 
 // Cuando reemplaces src/assets/miFoto.png por tu foto real, cambia esto a true
-const TENGO_FOTO = false;
+const TENGO_FOTO = true;
 
 const PROMPT = 'mayra@senati:~$';
 const MI_CORREO = '1582403@senati.pe';
@@ -158,7 +158,7 @@ const Perfil = () => {
         await teclear('whoami');
         await teclear('cat perfil.txt');
         if (cancelado) return;
-        setLineas((previas) => [...previas, sis('Escribe "help" o toca un comando de abajo ✨')]);
+        setLineas((previas) => [...previas, sis('Escribe "help" o toca un comando de abajo.')]);
         setListo(true);
       },
       { threshold: 0.35 },

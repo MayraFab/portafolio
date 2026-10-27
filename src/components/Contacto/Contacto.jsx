@@ -193,7 +193,7 @@ const Contacto = () => {
 
               {/* Mensajes de resultado */}
               {estadoEnvio === 'enviado' && (
-                <p className="form-aviso aviso-ok">¡Gracias! Tu mensaje fue enviado. Te responderé pronto. ✨</p>
+                <p className="form-aviso aviso-ok">¡Gracias! Tu mensaje fue enviado. Te responderé pronto.</p>
               )}
               {estadoEnvio === 'error' && (
                 <p className="form-aviso aviso-error">

@@ -24,6 +24,10 @@
   color: var(--acento-texto);
 }
 
+.footer-pregunta {
+  display: block;
+}
+
 .footer-texto {
   font-size: 0.85rem;
   color: var(--texto-suave);

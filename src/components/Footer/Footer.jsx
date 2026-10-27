@@ -9,9 +9,10 @@ const Footer = () => {
     <footer className="footer zona-oscura">
       <div className="footer-contenido">
         <p className="footer-nombre">
-          <span className="footer-acento">Mayra Fabiola</span> Mallqui Paccini
+          <span className="footer-acento">El final de la página, pero el inicio de algo grande. </span>
+          <span className="footer-pregunta">¿Conectamos?</span>
         </p>
-        <p className="footer-texto">© {anio} · Hecho con React, Vite y mucho.</p>
+        <p className="footer-texto">© {anio} · Diseñado por Mayra Mallqui Paccini.</p>
         <a href="#inicio" className="footer-arriba">Volver arriba ↑</a>
         {!sesion && (
           <button type="button" className="footer-admin" onClick={abrirLogin}>
