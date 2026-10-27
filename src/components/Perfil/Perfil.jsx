@@ -15,11 +15,11 @@ const MI_CORREO = '1582403@senati.pe';
 // Datos de formación (agrega o quita ítems aquí)
 const formacion = [
   { titulo: 'Ingeniería de Software con IA', lugar: 'SENATI', estado: 'En curso · 5.º semestre' },
-  { titulo: 'Formación dual', lugar: 'ELOMUX', estado: 'En curso' },
+  { titulo: 'Formación dual · practicante', lugar: 'ELOMUX', estado: 'En curso · co-líder Scrum' },
 ];
 
 const perfil = [
-  'Soy estudiante de quinto semestre de Ingeniería de Software con Inteligencia Artificial en SENATI. Actualmente complemento mi formación con el modelo dual en la empresa ELOMUX, donde conozco de cerca el trabajo y los retos de un entorno profesional.',
+  'Soy estudiante de quinto semestre de Ingeniería de Software con Inteligencia Artificial en SENATI. Actualmente complemento mi formación con el modelo dual en la empresa ELOMUX, donde soy practicante y co-lidero un equipo mientras aprendo la metodología Scrum, conociendo de cerca el trabajo y los retos de un entorno profesional.',
   'Me considero una persona multifacética, curiosa y comprometida con aprender cosas nuevas constantemente. Disfruto explorar distintas áreas de la tecnología y aplicar lo aprendido en proyectos concretos.',
   'Destaco por mis habilidades blandas, la colaboración y la comunicación clara de ideas, cualidades que me ayudan a aportar y crecer junto a cada equipo.',
 ];
@@ -78,7 +78,7 @@ const responder = (entrada) => {
   if (['skills', 'habilidades', 'stack'].includes(texto)) {
     return [
       ...techStack.map((grupo) => out(`${grupo.fila.padEnd(14, ' ')} ${grupo.items.map((i) => i.nombre).join(' · ')}`)),
-      sis('→ Mira mi ficha de personaje RPG más abajo'),
+      sis('→ Mira la sección Habilidades y el Tech Stack más abajo'),
     ];
   }
   if (['certificados', 'cursos'].includes(texto)) {

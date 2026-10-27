@@ -89,7 +89,23 @@ const trazos = {
     </>
   ),
 
+  scrum: (
+    <>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M8 7v7" />
+      <path d="M12 7v4" />
+      <path d="M16 7v9" />
+    </>
+  ),
+
   // ---------- Áreas técnicas ----------
+  basedatos: (
+    <>
+      <ellipse cx="12" cy="5" rx="9" ry="3" />
+      <path d="M3 5v14a9 3 0 0 0 18 0V5" />
+      <path d="M3 12a9 3 0 0 0 18 0" />
+    </>
+  ),
   diseno: (
     <>
       <rect x="3" y="3" width="18" height="18" rx="2" />

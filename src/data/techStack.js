@@ -37,10 +37,20 @@ export const techStack = [
     ],
   },
   {
+    fila: 'Bases de datos',
+    items: [
+      { nombre: 'PostgreSQL', icono: `${DEVICON}/postgresql/postgresql-original.svg`, estado: 'en-uso', descripcion: 'Base de datos relacional: tablas, relaciones y consultas SQL.' },
+      { nombre: 'MySQL', icono: `${DEVICON}/mysql/mysql-original.svg`, estado: 'en-uso', descripcion: 'Diseño de tablas y consultas SQL para aplicaciones web.' },
+      { nombre: 'MariaDB', icono: `${DEVICON}/mariadb/mariadb-original.svg`, estado: 'en-uso', descripcion: 'Motor compatible con MySQL para proyectos y prácticas.' },
+      { nombre: 'MySQL Workbench', icono: null, sigla: 'WB', estado: 'en-uso', descripcion: 'Modelado visual de bases de datos y ejecución de consultas.' },
+    ],
+  },
+  {
     fila: 'Herramientas',
     items: [
       { nombre: 'Git', icono: `${DEVICON}/git/git-original.svg`, estado: 'aprendiendo', descripcion: 'Control de versiones y gestión del historial de cambios.' },
       { nombre: 'GitHub', icono: `${DEVICON}/github/github-original.svg`, estado: 'en-uso', descripcion: 'Colaboración y publicación de proyectos de software.' },
+      { nombre: 'Postman', icono: `${DEVICON}/postman/postman-original.svg`, estado: 'en-uso', descripcion: 'Pruebas de APIs: peticiones, respuestas y colecciones.' },
     ],
   },
   {

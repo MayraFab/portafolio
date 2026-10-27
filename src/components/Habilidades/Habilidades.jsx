@@ -9,6 +9,7 @@ const blandas = [
   { icono: 'curiosidad', nombre: 'Curiosidad', detalle: 'Me gusta entender cómo funcionan las cosas por dentro.' },
   { icono: 'aprendizaje', nombre: 'Aprendizaje constante', detalle: 'Cada semestre sumo nuevas herramientas y lenguajes.' },
   { icono: 'adaptabilidad', nombre: 'Adaptabilidad', detalle: 'Me muevo entre web, móvil e IoT sin miedo a lo nuevo.' },
+  { icono: 'scrum', nombre: 'Trabajo ágil (Scrum)', detalle: 'Co-lidero un equipo en ELOMUX mientras aprendo la metodología Scrum.' },
 ];
 
 // Áreas técnicas: elige una para ver el detalle
@@ -28,6 +29,14 @@ const areas = [
     nivel: 'Intermedio',
     tecnologias: ['Flexbox', 'Grid', 'Bootstrap'],
     descripcion: 'Layouts responsivos que se ven bien en cualquier pantalla.',
+  },
+  {
+    id: 'datos',
+    icono: 'basedatos',
+    nombre: 'Bases de datos',
+    nivel: 'Básico',
+    tecnologias: ['PostgreSQL', 'MySQL', 'MariaDB', 'Workbench', 'Postman'],
+    descripcion: 'Diseño tablas y relaciones, escribo consultas SQL y pruebo APIs que guardan y leen datos.',
   },
   {
     id: 'versiones',
