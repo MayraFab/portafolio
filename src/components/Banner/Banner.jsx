@@ -122,7 +122,7 @@ const Banner = () => {
         {/* 1. Etiqueta de estado */}
         <div className="status-badge">
           <span className="status-dot"></span>
-          Disponible para nuevos proyectos
+          Disponible para nuevos proyectos ^^
         </div>
 
         {/* 2. Título principal */}
