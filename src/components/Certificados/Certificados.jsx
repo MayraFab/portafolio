@@ -1,26 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import './Certificados.css';
-import { certificadosData, ingles } from '../../data/certificados';
+import { ingles } from '../../data/certificados';
 import { useAdmin } from '../../context/AdminContext';
-import { useColeccion } from '../../hooks/useColeccion';
-import FormularioCertificado from '../Admin/FormularioCertificado';
+import { useSeccion } from '../../context/ContenidoContext';
+import FormularioAdmin from '../Admin/FormularioAdmin';
+import AccionesAdmin from '../Admin/AccionesAdmin';
+import { camposCertificado } from '../Admin/campos';
 import IconoCertificado from './IconoCertificado';
 
 /*
   Los certificados vienen de dos lugares:
   - src/data/certificados.js (los que escribes en el código, con su link)
-  - el panel de administración (los que agregas desde la web con tu contraseña)
+  - el panel de administración (agregar, editar o eliminar cualquiera desde la web)
 */
-const desdeTabla = (fila) => ({
-  id: `r-${fila.id}`,
-  idRemoto: fila.id,
-  icono: fila.icono || 'certificado',
-  titulo: fila.titulo,
-  emisor: fila.emisor,
-  fecha: fila.fecha,
-  link: fila.link,
-});
-
 // Convierte un link de Google Drive al formato que se puede mostrar dentro de la web
 const urlParaVer = (link) => {
   const drive = link.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([\w-]+)/);
@@ -77,21 +69,15 @@ const VisorCertificado = ({ certificado, alCerrar }) => {
 
 const Certificados = () => {
   const [abierto, setAbierto] = useState(null);
-  const [formAbierto, setFormAbierto] = useState(false);
+  // null = cerrado · 'nuevo' = agregar · un certificado = editar ese certificado
+  const [formulario, setFormulario] = useState(null);
   const { sesion } = useAdmin();
-  const { items, agregar, quitar } = useColeccion(certificadosData, 'certificados', desdeTabla);
+  const { items, agregar, editar, quitar, restaurar } = useSeccion('certificados');
 
   const cerrar = useCallback(() => setAbierto(null), []);
-  const cerrarForm = useCallback(() => setFormAbierto(false), []);
+  const cerrarForm = useCallback(() => setFormulario(null), []);
 
-  const borrar = async (cert) => {
-    if (!window.confirm(`¿Eliminar "${cert.titulo}"?`)) return;
-    try {
-      await quitar(cert, sesion.token);
-    } catch (error) {
-      window.alert(error.message);
-    }
-  };
+  const guardar = (datos) => (formulario === 'nuevo' ? agregar(datos) : editar(formulario, datos));
 
   return (
     <section id="certificados" className="section">
@@ -137,7 +123,7 @@ const Certificados = () => {
         {/* Certificados */}
         <div className="certificados-grid">
           {items.map((cert) => (
-            <article key={cert.id} className="certificado-card">
+            <article key={cert.clave} className="certificado-card">
               <div className="cert-icono" aria-hidden="true">
                 <IconoCertificado nombre={cert.icono} />
               </div>
@@ -160,17 +146,22 @@ const Certificados = () => {
                 <span className="certificado-boton pendiente">Enlace pendiente</span>
               )}
 
-              {sesion && cert.idRemoto && (
-                <button type="button" className="boton-eliminar" onClick={() => borrar(cert)}>
-                  Eliminar
-                </button>
+              {sesion && (
+                <AccionesAdmin
+                  item={cert}
+                  nombre={cert.titulo}
+                  alEditar={setFormulario}
+                  quitar={quitar}
+                  restaurar={restaurar}
+                  puedeBorrarFijos
+                />
               )}
             </article>
           ))}
 
           {/* Solo en modo edición */}
           {sesion && (
-            <button type="button" className="tarjeta-agregar" onClick={() => setFormAbierto(true)}>
+            <button type="button" className="tarjeta-agregar" onClick={() => setFormulario('nuevo')}>
               <span aria-hidden="true">+</span>
               Agregar certificado
             </button>
@@ -179,8 +170,15 @@ const Certificados = () => {
       </div>
 
       {abierto && <VisorCertificado certificado={abierto} alCerrar={cerrar} />}
-      {formAbierto && (
-        <FormularioCertificado alCerrar={cerrarForm} alGuardar={(fila) => agregar(fila, sesion.token)} />
+      {formulario && sesion && (
+        <FormularioAdmin
+          key={formulario === 'nuevo' ? 'nuevo' : formulario.clave}
+          titulo={formulario === 'nuevo' ? 'Agregar certificado' : 'Editar certificado'}
+          campos={camposCertificado}
+          inicial={formulario === 'nuevo' ? null : formulario}
+          alCerrar={cerrarForm}
+          alGuardar={guardar}
+        />
       )}
     </section>
   );

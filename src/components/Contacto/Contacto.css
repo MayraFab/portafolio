@@ -54,8 +54,8 @@ a.info-item:hover {
 }
 
 .icon-verde {
-  background: var(--resalte-tinte);
-  color: var(--resalte);
+  background: var(--etiqueta-fondo);
+  color: var(--etiqueta-texto);
 }
 
 .item-label {

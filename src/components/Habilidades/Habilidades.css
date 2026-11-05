@@ -67,7 +67,7 @@
 
 .area {
   display: grid;
-  grid-template-columns: 1.8rem 1fr auto;
+  grid-template-columns: 1.8rem 1fr;
   align-items: center;
   gap: 0.8rem;
   width: 100%;
@@ -100,16 +100,6 @@
   font-weight: 500;
 }
 
-.area-nivel {
-  font-family: var(--fuente-mono);
-  font-size: 0.72rem;
-  padding: 0.15rem 0.6rem;
-  border-radius: 999px;
-  background: var(--secundario-suave);
-  color: var(--resalte);
-  white-space: nowrap;
-}
-
 .area-detalle {
   margin-top: 1.2rem;
   padding: 1rem 1.1rem;
@@ -136,8 +126,8 @@
   font-size: 0.75rem;
   padding: 0.2rem 0.6rem;
   border-radius: 6px;
-  background: var(--resalte-tinte);
-  color: var(--resalte);
+  background: var(--etiqueta-fondo);
+  color: var(--etiqueta-texto);
 }
 
 /* ---------- Hacia dónde voy ---------- */

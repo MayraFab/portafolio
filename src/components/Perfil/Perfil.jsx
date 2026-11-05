@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import './Perfil.css';
-import { proyectosData } from '../../data/proyectos';
-import { techStack } from '../../data/techStack';
-import { certificadosData, ingles } from '../../data/certificados';
+import { ingles } from '../../data/certificados';
+import { agruparPorFila, useSeccion } from '../../context/ContenidoContext';
 import miFoto from '../../assets/miFoto.png';
 import IconoCertificado from '../Certificados/IconoCertificado';
 
 // Cuando reemplaces src/assets/miFoto.png por tu foto real, cambia esto a true
 const TENGO_FOTO = true;
 
-const PROMPT = 'mayra@senati:~$';
+const PROMPT = 'may@web:~$';
 const MI_CORREO = '1582403@senati.pe';
 
 // Datos de formación (agrega o quita ítems aquí)
@@ -57,8 +56,9 @@ const ayuda = [
   out('  clear           → limpiar la pantalla'),
 ];
 
-// Devuelve las líneas de respuesta para un comando
-const responder = (entrada) => {
+// Devuelve las líneas de respuesta para un comando.
+// "contenido" trae proyectos, certificados y tecnologías (incluye lo editado desde el panel)
+const responder = (entrada, contenido = { proyectos: [], certificados: [], tecnologias: [] }) => {
   const texto = entrada.trim().toLowerCase();
 
   if (texto === '') return [];
@@ -77,18 +77,18 @@ const responder = (entrada) => {
   }
   if (['skills', 'habilidades', 'stack'].includes(texto)) {
     return [
-      ...techStack.map((grupo) => out(`${grupo.fila.padEnd(14, ' ')} ${grupo.items.map((i) => i.nombre).join(' · ')}`)),
+      ...agruparPorFila(contenido.tecnologias).map((grupo) => out(`${grupo.fila.padEnd(14, ' ')} ${grupo.items.map((i) => i.nombre).join(' · ')}`)),
       sis('→ Mira la sección Habilidades y el Tech Stack más abajo'),
     ];
   }
   if (['certificados', 'cursos'].includes(texto)) {
-    return certificadosData.map((c) => out(`🏅 ${c.titulo} — ${c.emisor}`));
+    return contenido.certificados.map((c) => out(`🏅 ${c.titulo} — ${c.emisor}`));
   }
   if (['ingles', 'inglés', 'english'].includes(texto)) {
     return [ok(`Inglés ${ingles.nivel} — ${ingles.institucion} [${ingles.estado}]`), out('Nice to meet you! 👋')];
   }
   if (['proyectos', 'ls', 'ls proyectos'].includes(texto)) {
-    return proyectosData.map((p) => out(`📁 ${p.archivo.padEnd(20, ' ')} ${p.titulo}`));
+    return contenido.proyectos.map((p) => out(`📁 ${(p.archivo || '').padEnd(20, ' ')} ${p.titulo}`));
   }
   if (['contacto', 'contact'].includes(texto)) {
     return [
@@ -119,6 +119,9 @@ const responder = (entrada) => {
 };
 
 const Perfil = () => {
+  const proyectos = useSeccion('proyectos').items;
+  const certificados = useSeccion('certificados').items;
+  const tecnologias = useSeccion('tecnologias').items;
   const [lineas, setLineas] = useState([]);
   const [entrada, setEntrada] = useState('');
   // Texto que se "teclea" solo durante la presentación automática
@@ -188,7 +191,7 @@ const Perfil = () => {
       setLineas([]);
       return;
     }
-    const respuesta = responder(limpio);
+    const respuesta = responder(limpio, { proyectos, certificados, tecnologias });
     setLineas((previas) => [...previas, { tipo: 'cmd', texto: limpio }, ...respuesta]);
   };
 
@@ -255,7 +258,7 @@ const Perfil = () => {
               </div>
               <div>
                 <dt>Formación dual</dt>
-                <dd>ELOMUX</dd>
+                <dd>SENATI</dd>
               </div>
               <div>
                 <dt>Idioma</dt>
@@ -264,10 +267,10 @@ const Perfil = () => {
             </dl>
 
             <a className="tarjeta-certificados" href="#certificados">
-              <span className="certificados-titulo">{certificadosData.length} certificados</span>
+              <span className="certificados-titulo">{certificados.length} certificados</span>
               <span className="certificados-fila" aria-hidden="true">
-                {certificadosData.map((c) => (
-                  <span key={c.id} title={c.titulo}>
+                {certificados.map((c) => (
+                  <span key={c.clave} title={c.titulo}>
                     <IconoCertificado nombre={c.icono} tamano={16} />
                   </span>
                 ))}
@@ -286,13 +289,10 @@ const Perfil = () => {
                 <span className="punto punto-1"></span>
                 <span className="punto punto-2"></span>
                 <span className="punto punto-3"></span>
-                <span className="terminal-titulo">mayra@senati: ~/perfil — zsh</span>
+                <span className="terminal-titulo">may@web: ~/perfil — zsh</span>
               </div>
 
               <div className="terminal-cuerpo" ref={cuerpoRef} aria-live="polite">
-                <p className="linea linea-sis">
-                  Último inicio de sesión: {new Date().toLocaleDateString('es-PE')} en ttys001
-                </p>
 
                 {lineas.map((linea, i) =>
                   linea.tipo === 'cmd' ? (

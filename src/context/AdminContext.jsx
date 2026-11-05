@@ -1,6 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import Modal from '../components/Admin/Modal';
-import { borrarSesion, iniciarSesion, leerSesion, supabaseConfigurado } from '../utils/supabase';
+import {
+  EVENTO_SESION_VENCIDA,
+  borrarSesion,
+  iniciarSesion,
+  leerSesion,
+  supabaseConfigurado,
+} from '../utils/supabase';
 
 const AdminContext = createContext(null);
 
@@ -68,6 +74,17 @@ export const AdminProvider = ({ children }) => {
     borrarSesion();
     setSesion(null);
   }, []);
+
+  // La sesión de Supabase dura ~1 hora: al vencer se sale del modo edición automáticamente
+  useEffect(() => {
+    if (!sesion) return;
+    const temporizador = setTimeout(salir, Math.max(0, sesion.expira - Date.now()));
+    window.addEventListener(EVENTO_SESION_VENCIDA, salir);
+    return () => {
+      clearTimeout(temporizador);
+      window.removeEventListener(EVENTO_SESION_VENCIDA, salir);
+    };
+  }, [sesion, salir]);
 
   // Entrar a la web con #admin al final de la dirección también abre el login
   useEffect(() => {

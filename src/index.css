@@ -29,6 +29,8 @@
   --acento-suave: #efe3d4;
   --sobre-acento: #ffffff;      /* texto encima del café */
   --oro: #c9a548;               /* dorado tierra: solo para detalles decorativos */
+  --etiqueta-fondo: #e8d8c3;    /* café claro / beige oscuro: etiquetas de tecnologías */
+  --etiqueta-texto: #6b4a2f;
 
   /* Neutros (piedra / arena) */
   --taupe: #a89a86;
@@ -147,16 +149,17 @@ section {
   margin-bottom: 3rem;
 }
 
+/* Etiqueta "01 · perfil", etc.: sigue en el HTML (lectores de pantalla) pero no se ve */
 .section-kicker {
-  display: inline-block;
-  font-family: var(--fuente-mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
-  color: var(--resalte);
-  padding: 0.3rem 0.8rem;
-  background: var(--secundario-suave);
-  border-radius: 999px;
-  margin-bottom: 1rem;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .section-title {

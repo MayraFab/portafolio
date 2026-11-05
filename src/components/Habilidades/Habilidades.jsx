@@ -1,68 +1,16 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import './Habilidades.css';
 import IconoLinea from '../Iconos/IconoLinea';
+import { useAdmin } from '../../context/AdminContext';
+import { useSeccion } from '../../context/ContenidoContext';
+import FormularioAdmin from '../Admin/FormularioAdmin';
+import AccionesAdmin from '../Admin/AccionesAdmin';
+import { camposArea, camposBlanda } from '../Admin/campos';
 
-// Habilidades blandas
-const blandas = [
-  { icono: 'comunicacion', nombre: 'Comunicación', detalle: 'Explico ideas técnicas de forma clara y sencilla.' },
-  { icono: 'equipo', nombre: 'Trabajo en equipo', detalle: 'Colaboro, escucho y aporto para que el grupo avance.' },
-  { icono: 'curiosidad', nombre: 'Curiosidad', detalle: 'Me gusta entender cómo funcionan las cosas por dentro.' },
-  { icono: 'aprendizaje', nombre: 'Aprendizaje constante', detalle: 'Cada semestre sumo nuevas herramientas y lenguajes.' },
-  { icono: 'adaptabilidad', nombre: 'Adaptabilidad', detalle: 'Me muevo entre web, móvil e IoT sin miedo a lo nuevo.' },
-  { icono: 'scrum', nombre: 'Trabajo ágil (Scrum)', detalle: 'Co-lidero un equipo en ELOMUX mientras aprendo la metodología Scrum.' },
-];
-
-// Áreas técnicas: elige una para ver el detalle
-const areas = [
-  {
-    id: 'frontend',
-    icono: 'codigo',
-    nombre: 'Frontend',
-    nivel: 'Intermedio',
-    tecnologias: ['React', 'JavaScript', 'HTML / CSS', 'Vite'],
-    descripcion: 'Construyo interfaces con componentes reutilizables, props y estado. Es el área en la que más trabajo.',
-  },
-  {
-    id: 'diseno',
-    icono: 'diseno',
-    nombre: 'Diseño web',
-    nivel: 'Intermedio',
-    tecnologias: ['Flexbox', 'Grid', 'Bootstrap'],
-    descripcion: 'Layouts responsivos que se ven bien en cualquier pantalla.',
-  },
-  {
-    id: 'datos',
-    icono: 'basedatos',
-    nombre: 'Bases de datos',
-    nivel: 'Avanzado',
-    tecnologias: ['PostgreSQL', 'MySQL', 'MariaDB', 'Workbench', 'Postman'],
-    descripcion: 'Diseño tablas y relaciones, escribo consultas SQL y pruebo APIs que guardan y leen datos.',
-  },
-  {
-    id: 'versiones',
-    icono: 'versiones',
-    nombre: 'Control de versiones',
-    nivel: 'Avanzado',
-    tecnologias: ['Git', 'GitHub'],
-    descripcion: 'Historial de cambios, ramas y publicación de proyectos en GitHub.',
-  },
-  {
-    id: 'iot',
-    icono: 'hardware',
-    nombre: 'IoT y electrónica',
-    nivel: 'Básico',
-    tecnologias: ['Arduino UNO', 'Tinkercad', 'LCD 16x2'],
-    descripcion: 'Prototipos con sensores y pantallas, simulados en Tinkercad antes de armarlos.',
-  },
-  {
-    id: 'movil',
-    icono: 'movil',
-    nombre: 'Desarrollo móvil',
-    nivel: 'Básico',
-    tecnologias: ['Android Studio (Java)', 'Expo', 'React Native'],
-    descripcion: 'Apps con actividades, bases de datos locales y modo claro/oscuro.',
-  },
-];
+/*
+  Las habilidades blandas y las áreas técnicas están en src/data/habilidades.js.
+  Desde el panel puedes agregar nuevas y editar cualquiera (las del código no se eliminan).
+*/
 
 // Hacia dónde voy: "actual" marca la etapa de hoy
 const ruta = [
@@ -72,8 +20,32 @@ const ruta = [
 ];
 const ETAPA_ACTUAL = 0;
 
+// Textos del formulario según lo que se esté editando
+const formularios = {
+  areas: { campos: camposArea, agregar: 'Agregar área técnica', editar: 'Editar área técnica' },
+  blandas: { campos: camposBlanda, agregar: 'Agregar habilidad blanda', editar: 'Editar habilidad blanda' },
+};
+
 const Habilidades = () => {
-  const [seleccion, setSeleccion] = useState(areas[0]);
+  const { sesion } = useAdmin();
+  const blandas = useSeccion('blandas');
+  const areas = useSeccion('areas');
+  const [claveElegida, setClaveElegida] = useState('datos');
+  // null = cerrado · { seccion, item } (item null = agregar uno nuevo)
+  const [formulario, setFormulario] = useState(null);
+  const cerrarForm = useCallback(() => setFormulario(null), []);
+
+  // Si el área elegida se eliminó, se muestra la primera
+  const seleccion = areas.items.find((a) => a.clave === claveElegida) || areas.items[0];
+
+  const guardar = async (datos) => {
+    const { seccion, item } = formulario;
+    const coleccion = seccion === 'areas' ? areas : blandas;
+    if (item) await coleccion.editar(item, datos);
+    else await coleccion.agregar(datos);
+  };
+
+  const configForm = formulario && formularios[formulario.seccion];
 
   return (
     <section id="habilidades" className="section section-alt">
@@ -93,49 +65,80 @@ const Habilidades = () => {
           <article className="hab-card">
             <h3 className="hab-subtitulo">Habilidades blandas</h3>
             <ul className="blandas">
-              {blandas.map((b) => (
-                <li key={b.nombre}>
+              {blandas.items.map((b) => (
+                <li key={b.clave}>
                   <span className="blanda-icono" aria-hidden="true">
                     <IconoLinea nombre={b.icono} tamano={20} />
                   </span>
                   <div>
                     <p className="blanda-nombre">{b.nombre}</p>
                     <p className="blanda-detalle">{b.detalle}</p>
+                    {sesion && (
+                      <AccionesAdmin
+                        item={b}
+                        nombre={b.nombre}
+                        alEditar={(item) => setFormulario({ seccion: 'blandas', item })}
+                        quitar={blandas.quitar}
+                        restaurar={blandas.restaurar}
+                        compactas
+                      />
+                    )}
                   </div>
                 </li>
               ))}
             </ul>
+            {sesion && (
+              <button type="button" className="boton-agregar" onClick={() => setFormulario({ seccion: 'blandas', item: null })}>
+                + Agregar habilidad blanda
+              </button>
+            )}
           </article>
 
           {/* Áreas técnicas */}
           <article className="hab-card">
             <h3 className="hab-subtitulo">Áreas técnicas</h3>
             <div className="areas">
-              {areas.map((a) => (
+              {areas.items.map((a) => (
                 <button
-                  key={a.id}
+                  key={a.clave}
                   type="button"
-                  className={`area ${seleccion.id === a.id ? 'activa' : ''}`}
-                  onClick={() => setSeleccion(a)}
-                  aria-pressed={seleccion.id === a.id}
+                  className={`area ${seleccion?.clave === a.clave ? 'activa' : ''}`}
+                  onClick={() => setClaveElegida(a.clave)}
+                  aria-pressed={seleccion?.clave === a.clave}
                 >
                   <span className="area-icono" aria-hidden="true">
                     <IconoLinea nombre={a.icono} tamano={20} />
                   </span>
                   <span className="area-nombre">{a.nombre}</span>
-                  <span className="area-nivel">{a.nivel}</span>
                 </button>
               ))}
             </div>
 
-            <div className="area-detalle" key={seleccion.id}>
-              <p className="detalle-texto">{seleccion.descripcion}</p>
-              <div className="detalle-tags">
-                {seleccion.tecnologias.map((t) => (
-                  <span key={t}>{t}</span>
-                ))}
+            {seleccion && (
+              <div className="area-detalle" key={seleccion.clave}>
+                <p className="detalle-texto">{seleccion.descripcion}</p>
+                <div className="detalle-tags">
+                  {(seleccion.tecnologias || []).map((t, i) => (
+                    <span key={i}>{t}</span>
+                  ))}
+                </div>
+                {sesion && (
+                  <AccionesAdmin
+                    item={seleccion}
+                    nombre={seleccion.nombre}
+                    alEditar={(item) => setFormulario({ seccion: 'areas', item })}
+                    quitar={areas.quitar}
+                    restaurar={areas.restaurar}
+                    compactas
+                  />
+                )}
               </div>
-            </div>
+            )}
+            {sesion && (
+              <button type="button" className="boton-agregar" onClick={() => setFormulario({ seccion: 'areas', item: null })}>
+                + Agregar área técnica
+              </button>
+            )}
           </article>
         </div>
 
@@ -154,6 +157,17 @@ const Habilidades = () => {
           </ol>
         </article>
       </div>
+
+      {configForm && sesion && (
+        <FormularioAdmin
+          key={formulario.item?.clave || `nuevo-${formulario.seccion}`}
+          titulo={formulario.item ? configForm.editar : configForm.agregar}
+          campos={configForm.campos}
+          inicial={formulario.item}
+          alCerrar={cerrarForm}
+          alGuardar={guardar}
+        />
+      )}
     </section>
   );
 };

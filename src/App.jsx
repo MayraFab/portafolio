@@ -10,6 +10,7 @@ import Contacto from './components/Contacto/Contacto';
 import Footer from './components/Footer/Footer';
 import OndaSismica from './components/OndaSismica/OndaSismica';
 import { AdminProvider } from './context/AdminContext';
+import { ContenidoProvider } from './context/ContenidoContext';
 import './index.css';
 
 function App() {
@@ -26,24 +27,36 @@ function App() {
       },
       { threshold: 0.08 }
     );
-    document.querySelectorAll('.reveal').forEach((el) => observador.observe(el));
-    return () => observador.disconnect();
+    const observarPendientes = () =>
+      document.querySelectorAll('.reveal:not(.visible)').forEach((el) => observador.observe(el));
+    observarPendientes();
+
+    // Si una sección se vuelve a montar (p. ej. al recargar en caliente), también se observa
+    const vigia = new MutationObserver(observarPendientes);
+    vigia.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observador.disconnect();
+      vigia.disconnect();
+    };
   }, []);
 
   return (
     <AdminProvider>
-      <Navbar />
-      <main>
-        <Banner />
-        <Perfil />
-        <Habilidades />
-        <TechStack />
-        <Proyectos />
-        <Certificados />
-        <Contacto />
-      </main>
-      <Footer />
-      <OndaSismica />
+      <ContenidoProvider>
+        <Navbar />
+        <main>
+          <Banner />
+          <Perfil />
+          <Habilidades />
+          <TechStack />
+          <Proyectos />
+          <Certificados />
+          <Contacto />
+        </main>
+        <Footer />
+        <OndaSismica />
+      </ContenidoProvider>
     </AdminProvider>
   );
 }

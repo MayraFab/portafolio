@@ -56,8 +56,9 @@
   margin-bottom: 0.25rem;
 }
 
+/* Prompt "may@web:~$" en verde más oscuro para diferenciarlo del texto */
 .prompt {
-  color: var(--resalte);
+  color: #f0ece9;
   font-weight: 700;
 }
 

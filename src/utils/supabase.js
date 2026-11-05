@@ -76,6 +76,22 @@ export const iniciarSesion = async (email, password) => {
 };
 
 // ---------- Datos ----------
+const SIN_PERMISO = 'La base de datos no permitió el cambio. Revisa que hayas entrado con tu correo de administradora.';
+
+// Avisa a la app que la sesión venció (la barra de edición se cierra sola)
+export const EVENTO_SESION_VENCIDA = 'portafolio-sesion-vencida';
+
+const revisarRespuesta = async (respuesta, accion) => {
+  if (respuesta.ok) return;
+  if (respuesta.status === 401) {
+    borrarSesion();
+    window.dispatchEvent(new Event(EVENTO_SESION_VENCIDA));
+    throw new Error('Tu sesión venció. Vuelve a entrar desde "Administrar" al final de la página.');
+  }
+  if (respuesta.status === 403) throw new Error(SIN_PERMISO);
+  throw new Error(`No se pudo ${accion}. Inténtalo de nuevo en unos segundos.`);
+};
+
 export const listar = async (tabla) => {
   const respuesta = await fetch(`${URL_BASE}/rest/v1/${tabla}?select=*&order=creado.asc`, {
     headers: cabeceras(),
@@ -90,7 +106,7 @@ export const insertar = async (tabla, fila, token) => {
     headers: { ...cabeceras(token), Prefer: 'return=representation' },
     body: JSON.stringify(fila),
   });
-  if (!respuesta.ok) throw new Error('No se pudo guardar. ¿Tu sesión sigue activa?');
+  await revisarRespuesta(respuesta, 'guardar');
   const [creada] = await respuesta.json();
   return creada;
 };
@@ -101,15 +117,19 @@ export const actualizar = async (tabla, id, cambios, token) => {
     headers: { ...cabeceras(token), Prefer: 'return=representation' },
     body: JSON.stringify(cambios),
   });
-  if (!respuesta.ok) throw new Error('No se pudo guardar. ¿Tu sesión sigue activa?');
+  await revisarRespuesta(respuesta, 'guardar');
   const [actualizada] = await respuesta.json();
+  // Sin filas devueltas = la base no dejó modificarla (cuenta sin permiso o ya no existe)
+  if (!actualizada) throw new Error(SIN_PERMISO);
   return actualizada;
 };
 
 export const eliminar = async (tabla, id, token) => {
   const respuesta = await fetch(`${URL_BASE}/rest/v1/${tabla}?id=eq.${id}`, {
     method: 'DELETE',
-    headers: cabeceras(token),
+    headers: { ...cabeceras(token), Prefer: 'return=representation' },
   });
-  if (!respuesta.ok) throw new Error('No se pudo eliminar. ¿Tu sesión sigue activa?');
+  await revisarRespuesta(respuesta, 'eliminar');
+  const borradas = await respuesta.json();
+  if (!borradas.length) throw new Error(SIN_PERMISO);
 };

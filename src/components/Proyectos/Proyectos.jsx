@@ -1,15 +1,16 @@
 import { useCallback, useState } from 'react';
 import './Proyectos.css';
-import { proyectosData } from '../../data/proyectos';
 import { useAdmin } from '../../context/AdminContext';
-import { useColeccion } from '../../hooks/useColeccion';
-import FormularioProyecto from '../Admin/FormularioProyecto';
+import { useSeccion } from '../../context/ContenidoContext';
+import FormularioAdmin from '../Admin/FormularioAdmin';
+import AccionesAdmin from '../Admin/AccionesAdmin';
+import { camposProyecto, prepararProyecto, validarProyecto } from '../Admin/campos';
 import IconoLinea from '../Iconos/IconoLinea';
 
 /*
   Los proyectos vienen de dos lugares:
   - src/data/proyectos.js (los que escribes en el código)
-  - el panel de administración (los que agregas desde la web con tu contraseña)
+  - el panel de administración (agregar, editar o eliminar cualquiera desde la web)
 */
 const filtros = [
   { id: 'todos', label: 'Todos' },
@@ -20,22 +21,6 @@ const filtros = [
 
 // Si un proyecto aún no tiene repositorio propio, el botón lleva a tu perfil de GitHub
 const GITHUB_PERFIL = 'https://github.com/MayraFab';
-
-// Convierte una fila de la base de datos al formato de src/data/proyectos.js
-const desdeTabla = (fila) => ({
-  id: `r-${fila.id}`,
-  idRemoto: fila.id,
-  categoria: fila.categoria,
-  archivo: fila.archivo,
-  icono: fila.icono || 'carpeta',
-  imagen: fila.imagen,
-  titulo: fila.titulo,
-  descripcion: fila.descripcion,
-  tecnologias: fila.tecnologias || [],
-  linkCodigo: fila.link_codigo,
-  linkDemo: fila.link_demo,
-  reemplaza: fila.reemplaza,
-});
 
 // Devuelve true solo si el enlace existe y no es '#'
 const tieneEnlace = (link) => Boolean(link && link !== '#');
@@ -63,26 +48,12 @@ const Proyectos = () => {
   // null = cerrado · 'nuevo' = agregar · un proyecto = editar ese proyecto
   const [formulario, setFormulario] = useState(null);
   const { sesion } = useAdmin();
-  const { items, agregar, editar, quitar } = useColeccion(proyectosData, 'proyectos', desdeTabla);
+  const { items, agregar, editar, quitar, restaurar } = useSeccion('proyectos');
 
   const visibles = filtro === 'todos' ? items : items.filter((p) => p.categoria === filtro);
   const cerrarForm = useCallback(() => setFormulario(null), []);
 
-  const guardar = (fila) =>
-    formulario === 'nuevo' ? agregar(fila, sesion.token) : editar(formulario, fila, sesion.token);
-
-  // En un proyecto editado, borrar la fila devuelve el original de src/data/proyectos.js
-  const borrar = async (proyecto) => {
-    const pregunta = proyecto.reemplaza
-      ? `¿Deshacer los cambios de "${proyecto.titulo}" y volver al original?`
-      : `¿Eliminar "${proyecto.titulo}"?`;
-    if (!window.confirm(pregunta)) return;
-    try {
-      await quitar(proyecto, sesion.token);
-    } catch (error) {
-      window.alert(error.message);
-    }
-  };
+  const guardar = (datos) => (formulario === 'nuevo' ? agregar(datos) : editar(formulario, datos));
 
   return (
     <section id="proyectos" className="section section-alt">
@@ -115,7 +86,7 @@ const Proyectos = () => {
 
         <div className="proyectos-grid">
           {visibles.map((proyecto) => (
-            <article key={proyecto.id} className="proyecto-card" onMouseMove={inclinar} onMouseLeave={enderezar}>
+            <article key={proyecto.clave} className="proyecto-card" onMouseMove={inclinar} onMouseLeave={enderezar}>
               {/* 1. Barra tipo ventana con el nombre del archivo */}
               <div className="proyecto-barra">
                 <span className="punto punto-1"></span>
@@ -143,8 +114,8 @@ const Proyectos = () => {
                 <p className="proyecto-desc">{proyecto.descripcion}</p>
 
                 <div className="proyecto-tags">
-                  {proyecto.tecnologias.map((tech) => (
-                    <span key={tech} className="tech-tag">{tech}</span>
+                  {(proyecto.tecnologias || []).map((tech, i) => (
+                    <span key={i} className="tech-tag">{tech}</span>
                   ))}
                 </div>
 
@@ -175,16 +146,14 @@ const Proyectos = () => {
                 </div>
 
                 {sesion && (
-                  <div className="acciones-admin">
-                    <button type="button" className="boton-editar" onClick={() => setFormulario(proyecto)}>
-                      Editar
-                    </button>
-                    {proyecto.idRemoto && (
-                      <button type="button" className="boton-eliminar" onClick={() => borrar(proyecto)}>
-                        {proyecto.reemplaza ? 'Deshacer cambios' : 'Eliminar'}
-                      </button>
-                    )}
-                  </div>
+                  <AccionesAdmin
+                    item={proyecto}
+                    nombre={proyecto.titulo}
+                    alEditar={setFormulario}
+                    quitar={quitar}
+                    restaurar={restaurar}
+                    puedeBorrarFijos
+                  />
                 )}
               </div>
             </article>
@@ -208,10 +177,14 @@ const Proyectos = () => {
         </div>
       </div>
 
-      {formulario && (
-        <FormularioProyecto
-          key={formulario === 'nuevo' ? 'nuevo' : formulario.id}
+      {formulario && sesion && (
+        <FormularioAdmin
+          key={formulario === 'nuevo' ? 'nuevo' : formulario.clave}
+          titulo={formulario === 'nuevo' ? 'Agregar proyecto' : 'Editar proyecto'}
+          campos={camposProyecto}
           inicial={formulario === 'nuevo' ? null : formulario}
+          validar={validarProyecto}
+          preparar={prepararProyecto}
           alCerrar={cerrarForm}
           alGuardar={guardar}
         />

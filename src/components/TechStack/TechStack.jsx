@@ -1,6 +1,15 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import './TechStack.css';
-import { techStack } from '../../data/techStack';
+import { useAdmin } from '../../context/AdminContext';
+import { agruparPorFila, useSeccion } from '../../context/ContenidoContext';
+import FormularioAdmin from '../Admin/FormularioAdmin';
+import AccionesAdmin from '../Admin/AccionesAdmin';
+import { camposTecla } from '../Admin/campos';
+
+/*
+  Las teclas están en src/data/techStack.js.
+  Desde el panel puedes agregar teclas nuevas y editar cualquiera (las del código no se eliminan).
+*/
 
 const textoEstado = {
   'en-uso': 'En uso',
@@ -26,7 +35,17 @@ const Icono = ({ item }) => {
 };
 
 const TechStack = () => {
-  const [seleccion, setSeleccion] = useState(null);
+  const { sesion } = useAdmin();
+  const { items, agregar, editar, quitar, restaurar } = useSeccion('tecnologias');
+  const [claveElegida, setClaveElegida] = useState(null);
+  // null = cerrado · 'nueva' = agregar · una tecla = editar esa tecla
+  const [formulario, setFormulario] = useState(null);
+  const cerrarForm = useCallback(() => setFormulario(null), []);
+
+  const filas = agruparPorFila(items);
+  const seleccion = items.find((t) => t.clave === claveElegida) || null;
+
+  const guardar = (datos) => (formulario === 'nueva' ? agregar(datos) : editar(formulario, datos));
 
   return (
     <section id="tech-stack" className="section">
@@ -45,12 +64,22 @@ const TechStack = () => {
           {/* Pantallita que muestra la tecla presionada */}
           <div className="pantalla" aria-live="polite">
             {seleccion ? (
-              <div key={seleccion.nombre} className="pantalla-contenido">
+              <div key={seleccion.clave} className="pantalla-contenido">
                 <p className="pantalla-linea">
                   <span className="text-accent">&gt;</span> {seleccion.nombre}
                   <span className={`pantalla-estado estado-${seleccion.estado}`}>{textoEstado[seleccion.estado]}</span>
                 </p>
                 <p className="pantalla-desc">{seleccion.descripcion}</p>
+                {sesion && (
+                  <AccionesAdmin
+                    item={seleccion}
+                    nombre={seleccion.nombre}
+                    alEditar={setFormulario}
+                    quitar={quitar}
+                    restaurar={restaurar}
+                    compactas
+                  />
+                )}
               </div>
             ) : (
               <p className="pantalla-linea pantalla-vacia">
@@ -61,17 +90,17 @@ const TechStack = () => {
 
           {/* Teclado */}
           <div className="teclado">
-            {techStack.map((grupo) => (
+            {filas.map((grupo) => (
               <div key={grupo.fila} className="teclado-fila">
                 <span className="fila-etiqueta">{grupo.fila}</span>
                 <div className="fila-teclas">
                   {grupo.items.map((item) => (
                     <button
-                      key={item.nombre}
+                      key={item.clave}
                       type="button"
-                      className={`tecla ${seleccion?.nombre === item.nombre ? 'presionada' : ''}`}
-                      onClick={() => setSeleccion(item)}
-                      aria-pressed={seleccion?.nombre === item.nombre}
+                      className={`tecla ${seleccion?.clave === item.clave ? 'presionada' : ''}`}
+                      onClick={() => setClaveElegida(item.clave)}
+                      aria-pressed={seleccion?.clave === item.clave}
                     >
                       {item.estado === 'aprendiendo' && <span className="tecla-led" title="Aprendiendo"></span>}
                       <Icono item={item} />
@@ -86,8 +115,25 @@ const TechStack = () => {
           <p className="teclado-leyenda">
             <span className="led-ejemplo"></span> = aprendiendo · sin luz = en uso
           </p>
+
+          {sesion && (
+            <button type="button" className="boton-agregar" onClick={() => setFormulario('nueva')}>
+              + Agregar tecla
+            </button>
+          )}
         </div>
       </div>
+
+      {formulario && sesion && (
+        <FormularioAdmin
+          key={formulario === 'nueva' ? 'nueva' : formulario.clave}
+          titulo={formulario === 'nueva' ? 'Agregar tecla' : 'Editar tecla'}
+          campos={camposTecla(filas.map((g) => g.fila))}
+          inicial={formulario === 'nueva' ? null : formulario}
+          alCerrar={cerrarForm}
+          alGuardar={guardar}
+        />
+      )}
     </section>
   );
 };

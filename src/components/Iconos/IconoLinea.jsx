@@ -167,6 +167,7 @@ const trazos = {
 // Grupos de nombres para las listas de los formularios del panel
 export const iconosCertificado = ['codigo', 'datos', 'seguridad', 'iot', 'redes', 'hardware', 'certificado'];
 export const iconosProyecto = ['carpeta', 'codigo', 'escuela', 'tareas', 'comida', 'enchufe', 'movil', 'diseno', 'datos', 'iot'];
+export const todosLosIconos = Object.keys(trazos);
 
 const IconoLinea = ({ nombre, tamano = 24, respaldo = 'certificado', grosor = 1.6 }) => (
   <svg

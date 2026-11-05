@@ -224,6 +224,32 @@
   background: var(--acento-tinte);
 }
 
+/* Botones de edición pegados al texto (habilidades, áreas y teclas) */
+.acciones-admin.compactas {
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+}
+
+/* Botón "+ Agregar …" dentro de una tarjeta */
+.boton-agregar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  border: 2px dashed var(--secundario);
+  background: var(--secundario-suave);
+  color: var(--secundario);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.boton-agregar:hover {
+  background: var(--resalte-tinte);
+}
+
 @media (max-width: 480px) {
   .admin-fila {
     grid-template-columns: 1fr;
