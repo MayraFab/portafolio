@@ -48,7 +48,8 @@ export const proyectosData = [
     linkCodigo: '',
   },
   {
-    id: 3,
+    // id 5 (no 3): el 3 quedó marcado como oculto en el panel por el antiguo clasificador
+    id: 5,
     categoria: 'web',
     archivo: 'nova-salud.jsx',
     icono: 'salud',
