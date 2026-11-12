@@ -12,9 +12,13 @@
                y luego escribe  imagen: capturaEscuela
                Si la dejas en null, se muestra una portada con el ícono.
   - icono: ícono de línea negra de la portada. Opciones: 'carpeta' · 'codigo' · 'escuela' ·
-           'tareas' · 'comida' · 'enchufe' · 'movil' · 'diseno' · 'datos' · 'iot'
+           'tareas' · 'comida' · 'enchufe' · 'movil' · 'diseno' · 'datos' · 'iot' ·
+           'salud' · 'termometro'
            (los dibujos están en src/components/Iconos/IconoLinea.jsx)
   - linkDemo / linkCodigo: si los dejas vacíos (''), el botón no aparece.
+               Si linkDemo es de Tinkercad, el botón dice "Ver simulación".
+  - sitios (opcional): para proyectos con varias páginas, una lista de
+               { nombre, detalle, linkDemo, linkCodigo }; cada una muestra sus botones.
 */
 export const proyectosData = [
   {
@@ -45,28 +49,43 @@ export const proyectosData = [
   },
   {
     id: 3,
-    categoria: 'movil',
-    archivo: 'barbivo-food.tsx',
-    icono: 'comida',
+    categoria: 'web',
+    archivo: 'nova-salud.jsx',
+    icono: 'salud',
     imagen: null,
-    titulo: 'BARBIVO-FOOD',
+    titulo: 'Nova Salud – Farmacia',
     descripcion:
-      'Aplicación móvil de pedidos de comida desarrollada con Expo, con experiencia visual en modo claro y oscuro.',
-    tecnologias: ['Expo', 'React Native', 'Modo claro/oscuro'],
-    linkDemo: '',
-    linkCodigo: '',
+      'Sistema para una farmacia con dos páginas: un ERP interno de inventario para cajero, administrador y almacenista, y una tienda pública para comprar productos y reservar citas.',
+    tecnologias: ['React', 'Vite', 'JavaScript', 'CSS', 'jsPDF', 'Vercel'],
+    linkDemo: 'https://nova-salud-tienda.vercel.app/',
+    linkCodigo: 'https://github.com/nova-salud-equipo/nova-salud-erp',
+    // Cuando un proyecto tiene varias páginas, cada una muestra sus propios botones
+    sitios: [
+      {
+        nombre: 'ERP interno',
+        detalle: 'inventario · uso del personal',
+        linkDemo: 'https://nova-salud-erp.vercel.app/',
+        linkCodigo: 'https://github.com/nova-salud-equipo/nova-salud-erp',
+      },
+      {
+        nombre: 'Tienda online',
+        detalle: 'ventas y citas · público',
+        linkDemo: 'https://nova-salud-tienda.vercel.app/',
+        linkCodigo: 'https://github.com/nova-salud-equipo/nova-salud-tienda',
+      },
+    ],
   },
   {
     id: 4,
     categoria: 'iot',
-    archivo: 'bienvenida.ino',
-    icono: 'enchufe',
+    archivo: 'control-temperatura.ino',
+    icono: 'termometro',
     imagen: null,
-    titulo: 'Mensaje de bienvenida con Arduino',
+    titulo: 'Sistema de control de temperatura automatizado',
     descripcion:
-      'Proyecto con Arduino UNO que muestra un mensaje de bienvenida en una pantalla LCD.',
-    tecnologias: ['Arduino UNO', 'LCD 16x2', 'Tinkercad'],
-    linkDemo: '',
+      'Circuito con Arduino UNO que mide la temperatura con un sensor y activa automáticamente la respuesta del sistema, mostrando las lecturas en una pantalla LCD. Simulado en Tinkercad.',
+    tecnologias: ['Arduino UNO', 'Sensor de temperatura', 'LCD 16x2', 'Tinkercad'],
+    linkDemo: 'https://www.tinkercad.com/things/2aX6wOTctdU-laboratorio-14?sharecode=JaBdvC6Z5Lu9z4f3DBkUGOe2-glAO9vzu9FDlWrae-Q',
     linkCodigo: '',
   },
 ];
