@@ -81,11 +81,7 @@ const Proyectos = () => {
   const visibles = filtro === 'todos' ? items : items.filter((p) => p.categoria === filtro);
   const cerrarForm = useCallback(() => setFormulario(null), []);
 
-  // El formulario no edita "sitios": si el proyecto los tiene, se conservan al guardar
-  const guardar = (datos) =>
-    formulario === 'nuevo'
-      ? agregar(datos)
-      : editar(formulario, formulario.sitios ? { sitios: formulario.sitios, ...datos } : datos);
+  const guardar = (datos) => (formulario === 'nuevo' ? agregar(datos) : editar(formulario, datos));
 
   return (
     <section id="proyectos" className="section section-alt">
@@ -151,22 +147,8 @@ const Proyectos = () => {
                   ))}
                 </div>
 
-                {/* 4. Botones: una fila por página si el proyecto tiene varias */}
-                {proyecto.sitios?.length ? (
-                  <div className="proyecto-sitios">
-                    {proyecto.sitios.map((sitio) => (
-                      <div key={sitio.nombre} className="proyecto-sitio">
-                        <p className="sitio-nombre">
-                          {sitio.nombre}
-                          {sitio.detalle && <span>{sitio.detalle}</span>}
-                        </p>
-                        <BotonesProyecto linkCodigo={sitio.linkCodigo} linkDemo={sitio.linkDemo} />
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <BotonesProyecto linkCodigo={proyecto.linkCodigo} linkDemo={proyecto.linkDemo} />
-                )}
+                {/* 4. Botones: GitHub siempre; "Ver página" solo si tiene web publicada */}
+                <BotonesProyecto linkCodigo={proyecto.linkCodigo} linkDemo={proyecto.linkDemo} />
 
                 {sesion && (
                   <AccionesAdmin

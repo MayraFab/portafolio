@@ -162,6 +162,13 @@ const trazos = {
       <path d="m8.5 8.5 7 7" />
     </>
   ),
+  tienda: (
+    <>
+      <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+      <path d="M3 6h18" />
+      <path d="M16 10a4 4 0 0 1-8 0" />
+    </>
+  ),
   termometro: <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" />,
   herramienta: (
     <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
@@ -173,7 +180,7 @@ const trazos = {
 
 // Grupos de nombres para las listas de los formularios del panel
 export const iconosCertificado = ['codigo', 'datos', 'seguridad', 'iot', 'redes', 'hardware', 'certificado'];
-export const iconosProyecto = ['carpeta', 'codigo', 'escuela', 'tareas', 'comida', 'enchufe', 'movil', 'diseno', 'datos', 'iot', 'salud', 'termometro'];
+export const iconosProyecto = ['carpeta', 'codigo', 'escuela', 'tareas', 'comida', 'enchufe', 'movil', 'diseno', 'datos', 'iot', 'salud', 'tienda', 'termometro'];
 export const todosLosIconos = Object.keys(trazos);
 
 const IconoLinea = ({ nombre, tamano = 24, respaldo = 'certificado', grosor = 1.6 }) => (

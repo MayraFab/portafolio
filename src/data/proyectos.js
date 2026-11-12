@@ -13,12 +13,10 @@
                Si la dejas en null, se muestra una portada con el ícono.
   - icono: ícono de línea negra de la portada. Opciones: 'carpeta' · 'codigo' · 'escuela' ·
            'tareas' · 'comida' · 'enchufe' · 'movil' · 'diseno' · 'datos' · 'iot' ·
-           'salud' · 'termometro'
+           'salud' · 'tienda' · 'termometro'
            (los dibujos están en src/components/Iconos/IconoLinea.jsx)
   - linkDemo / linkCodigo: si los dejas vacíos (''), el botón no aparece.
                Si linkDemo es de Tinkercad, el botón dice "Ver simulación".
-  - sitios (opcional): para proyectos con varias páginas, una lista de
-               { nombre, detalle, linkDemo, linkCodigo }; cada una muestra sus botones.
 */
 export const proyectosData = [
   {
@@ -47,34 +45,32 @@ export const proyectosData = [
     linkDemo: '',
     linkCodigo: '',
   },
+  // Nova Salud usa ids 5 y 6 (no 3): el 3 quedó marcado como oculto en el panel
   {
-    // id 5 (no 3): el 3 quedó marcado como oculto en el panel por el antiguo clasificador
     id: 5,
     categoria: 'web',
-    archivo: 'nova-salud.jsx',
+    archivo: 'nova-salud-erp.jsx',
     icono: 'salud',
     imagen: null,
-    titulo: 'Nova Salud – Farmacia',
+    titulo: 'Nova Salud – ERP interno',
     descripcion:
-      'Sistema para una farmacia con dos páginas: un ERP interno de inventario para cajero, administrador y almacenista, y una tienda pública para comprar productos y reservar citas.',
+      'Panel interno de una farmacia para controlar el inventario. Solo lo usa el personal: cajero, administrador y almacenista, cada uno con sus permisos.',
+    tecnologias: ['React', 'Vite', 'JavaScript', 'CSS', 'Vercel'],
+    linkDemo: 'https://nova-salud-erp.vercel.app/',
+    linkCodigo: 'https://github.com/nova-salud-equipo/nova-salud-erp',
+  },
+  {
+    id: 6,
+    categoria: 'web',
+    archivo: 'nova-salud-tienda.jsx',
+    icono: 'tienda',
+    imagen: null,
+    titulo: 'Nova Salud – Tienda online',
+    descripcion:
+      'Página pública de la farmacia donde los clientes compran productos y reservan citas.',
     tecnologias: ['React', 'Vite', 'JavaScript', 'CSS', 'jsPDF', 'Vercel'],
     linkDemo: 'https://nova-salud-tienda.vercel.app/',
-    linkCodigo: 'https://github.com/nova-salud-equipo/nova-salud-erp',
-    // Cuando un proyecto tiene varias páginas, cada una muestra sus propios botones
-    sitios: [
-      {
-        nombre: 'ERP interno',
-        detalle: 'inventario · uso del personal',
-        linkDemo: 'https://nova-salud-erp.vercel.app/',
-        linkCodigo: 'https://github.com/nova-salud-equipo/nova-salud-erp',
-      },
-      {
-        nombre: 'Tienda online',
-        detalle: 'ventas y citas · público',
-        linkDemo: 'https://nova-salud-tienda.vercel.app/',
-        linkCodigo: 'https://github.com/nova-salud-equipo/nova-salud-tienda',
-      },
-    ],
+    linkCodigo: 'https://github.com/nova-salud-equipo/nova-salud-tienda',
   },
   {
     id: 4,

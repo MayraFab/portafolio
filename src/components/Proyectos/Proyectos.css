@@ -251,38 +251,3 @@
   color: var(--texto-suave);
 }
 
-/* ---------- Proyectos con varias páginas (ej. Nova Salud) ---------- */
-.proyecto-sitios {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-  margin-top: 1.2rem;
-}
-
-.proyecto-sitio {
-  padding: 0.8rem 0.9rem;
-  border: 1px solid var(--borde);
-  border-radius: calc(var(--radio) * 0.6);
-  background: rgba(var(--fondo-rgb), 0.35);
-}
-
-.proyecto-sitio .proyecto-links {
-  margin-top: 0.6rem;
-  flex-wrap: wrap;
-}
-
-.sitio-nombre {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.2rem 0.5rem;
-  font-weight: 600;
-  font-size: 0.92rem;
-}
-
-.sitio-nombre span {
-  font-family: var(--fuente-mono);
-  font-size: 0.72rem;
-  font-weight: 400;
-  color: var(--texto-suave);
-}
